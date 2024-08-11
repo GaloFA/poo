@@ -14,9 +14,8 @@ class Numero(abc.ABC):
     @abc.abstractmethod
     def __repr__(self):
         """Retorna la representación detallada del número como texto.
-        Ejemplo de uso: 
+        Ejemplo de uso: repr(a)
 
-        hola
         Returns:
             string: La representación detallada del número como texto.
         """
