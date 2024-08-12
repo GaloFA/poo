@@ -1,0 +1,38 @@
+Ejercicio 1: Entero
+Un entero se representa con la clase Entero.
+
+Para todo entero se necesita poder pedirle:
+- El valor del entero representado como string.
+- La suma de este entero con otro entero.
+- La resta de este entero con otro entero.
+- La multiplicación de este entero con otro entero.
+- La división de un entero con otro entero.
+- Si un entero es {mayor, mayor o igual, menor, menor o igual} a otro.
+- Si el entero es negativo.
+- Si el entero es positivo
+- Si el entero es cero.
+Ejercicio 2: Fracción
+Una fracción se representa con la clase Fraccion, que utiliza dos objetos de la clase Entero como numerador y denominador.
+
+Para toda fracción se necesita poder pedirle:
+- El valor del numerador y el denominador.
+    - Si el denominador es cero, debe lanzar una excepción personalizada FraccionInvalidaError.
+- Simplificar el numerador y el denominador.
+- Saber si dos fracciones son equivalentes.
+- Sumar otra fracción, resultando en una nueva fracción simplificada.
+- Restar otra fracción, resultando en una nueva fracción simplificada.
+- Multiplicar por otra fracción, resultando en una nueva fracción simplificada.
+- Dividir por otra fracción, resultando en una nueva fracción simplificada.
+
+Ejercicio 3: Rangos
+Un rango numérico se crea a partir del límite inferior y el límite superior, los cuales son dos objetos de la clase Entero.
+
+Para todo rango se necesita poder resolver:
+- Obtener la representación del rango en string, por ejemplo [1, 5].
+- Determinar si incluye a un determinado entero dentro de los límites.
+- Calcular su tamaño (es decir, cuánta distancia hay entre el límite superior y el inferior).
+- Verificar si está incluido en otro rango.
+- Determinar si intersecta en algún punto con otro rango.
+
+Adicionalmente, pensar cómo resolver lo siguiente:
+- Los rangos pueden ser abiertos o cerrados.
