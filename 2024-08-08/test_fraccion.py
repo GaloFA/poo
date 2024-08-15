@@ -1,97 +1,117 @@
-from entero import Entero
-from fraccion import Fraccion
+""" a """
+
 import unittest
+import entero as e
+import fraccion as f
+
 
 
 class TestFraccion(unittest.TestCase):
+    """ a """
+
     def test_inicializar_sin_tipo_entero_da_error(self):
+        """ a """
         with self.assertRaises(ValueError):
-            Fraccion(1, 2)  # type: ignore
+            f.Fraccion(1, 2)  # type: ignore
 
     def test_inicializar_con_denominador_cero_da_error(self):
+        """ a """
         with self.assertRaises(ZeroDivisionError):
-            Fraccion(Entero(1), Entero(0))
+            f.Fraccion(e.Entero(1), e.Entero(0))
 
     def test_str(self):
-        fraccion = Fraccion(Entero(5), Entero(2))
+        """ a """
+        fraccion = f.Fraccion(e.Entero(5), e.Entero(2))
 
         self.assertEqual("5/2", str(fraccion))
 
     def test_repr(self):
-        fraccion = Fraccion(Entero(5), Entero(2))
+        """ a """
+        fraccion = f.Fraccion(e.Entero(5), e.Entero(2))
 
-        self.assertEqual("Fraccion(5/2)", repr(fraccion))
+        self.assertEqual("f.Fraccion(5/2)", repr(fraccion))
 
     def test_suma(self):
-        f1 = Fraccion(Entero(2), Entero(2))
-        f2 = Fraccion(Entero(1), Entero(2))
-        res = Fraccion(Entero(3), Entero(2))
+        """ a """
+        f1 = f.Fraccion(e.Entero(2), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(1), e.Entero(2))
+        res = f.Fraccion(e.Entero(3), e.Entero(2))
 
         self.assertEqual(res, f1 + f2)
 
     def test_resta(self):
-        f1 = Fraccion(Entero(2), Entero(2))
-        f2 = Fraccion(Entero(1), Entero(2))
+        """ a """
+        f1 = f.Fraccion(e.Entero(2), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(1), e.Entero(2))
 
-        res = Fraccion(Entero(1), Entero(2))
+        res = f.Fraccion(e.Entero(1), e.Entero(2))
         self.assertEqual(res, f1 - f2)
 
     def test_multiplicacion(self):
-        f1 = Fraccion(Entero(2), Entero(2))
-        f2 = Fraccion(Entero(1), Entero(2))
+        """ a """
+        f1 = f.Fraccion(e.Entero(2), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(1), e.Entero(2))
 
-        res = Fraccion(Entero(2), Entero(4))
+        res = f.Fraccion(e.Entero(2), e.Entero(4))
         self.assertEqual(res, f1 * f2)
 
     def test_division(self):
-        f1 = Fraccion(Entero(2), Entero(2))
-        f2 = Fraccion(Entero(1), Entero(2))
+        """ a """
+        f1 = f.Fraccion(e.Entero(2), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(1), e.Entero(2))
 
-        res = Fraccion(Entero(4), Entero(2))
+        res = f.Fraccion(e.Entero(4), e.Entero(2))
         self.assertEqual(res, f1 / f2)
 
     def test_mayor_o_igual_retorna_verdadero_si_es_mayor(self):
-        f1 = Fraccion(Entero(4), Entero(2))
-        f2 = Fraccion(Entero(1), Entero(3))
+        """ a """
+        f1 = f.Fraccion(e.Entero(4), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(1), e.Entero(3))
 
         self.assertTrue(f1 >= f2)
 
     def test_mayor_o_igual_retorna_verdadero_si_es_igual(self):
-        f1 = Fraccion(Entero(4), Entero(2))
-        f2 = Fraccion(Entero(4), Entero(2))
+        """ a """
+        f1 = f.Fraccion(e.Entero(4), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(4), e.Entero(2))
 
         self.assertTrue(f1 >= f2)
 
     def test_mayor_o_igual_retorna_falso_si_es_menor(self):
-        f1 = Fraccion(Entero(1), Entero(2))
-        f2 = Fraccion(Entero(4), Entero(3))
+        """ a """
+        f1 = f.Fraccion(e.Entero(1), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(4), e.Entero(3))
 
         self.assertFalse(f1 >= f2)
 
     def test_menor_retorna_verdadero_si_es_menor(self):
-        f1 = Fraccion(Entero(1), Entero(2))
-        f2 = Fraccion(Entero(4), Entero(3))
+        """ a """
+        f1 = f.Fraccion(e.Entero(1), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(4), e.Entero(3))
 
         self.assertTrue(f1 < f2)
 
     def test_menor_retorna_falso_si_es_mayor(self):
-        f1 = Fraccion(Entero(4), Entero(2))
-        f2 = Fraccion(Entero(1), Entero(3))
+        """ a """
+        f1 = f.Fraccion(e.Entero(4), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(1), e.Entero(3))
 
         self.assertFalse(f1 < f2)
 
     def test_menor_retorna_falso_si_es_igual(self):
-        f1 = Fraccion(Entero(4), Entero(2))
-        f2 = Fraccion(Entero(4), Entero(2))
+        """ a """
+        f1 = f.Fraccion(e.Entero(4), e.Entero(2))
+        f2 = f.Fraccion(e.Entero(4), e.Entero(2))
 
         self.assertFalse(f1 < f2)
-    
+
     def test_division_entero_error(self):
+        """ a """
         with self.assertRaises(ArithmeticError):
-            f1 = Fraccion(Entero(1), Entero(2))
-            f2 = Fraccion(Entero(1), Entero(4))
-            
-            f1.__floordiv__(f2)
+            f1 = f.Fraccion(e.Entero(1), e.Entero(2))
+            f2 = f.Fraccion(e.Entero(1), e.Entero(4))
+
+            f1 // f2 # type: ignore pylint: disable=pointless-statement
 
 if __name__ == "__main__":
     unittest.main()

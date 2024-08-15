@@ -1,7 +1,10 @@
+"""Import classes"""
+
 from numero import Numero
 import entero as e
 
 class Fraccion(Numero):
+    """ Clase Fraccion """
     def __init__(self, numerador: e.Entero, denominador: e.Entero):
         if not isinstance(numerador, e.Entero):
             raise ValueError("El numerador debe ser de tipo Entero")
@@ -16,78 +19,85 @@ class Fraccion(Numero):
         self.__denominador: e.Entero = denominador
 
     def __str__(self) -> str:
-        return f"{self.__numerador}/{self.__denominador}"
-    
+        return f"{self.numerador}/{self.denominador}"
+
     def __repr__(self) -> str:
-        return f"Fraccion({self.__numerador}/{self.__denominador})"
+        return f"Fraccion({self.numerador}/{self.denominador})"
 
     def __eq__(self, otro: "Fraccion") -> bool:
-        return self.__numerador == otro.__numerador and self.__denominador == otro.__denominador
-
+        return self.numerador == otro.numerador and self.denominador == otro.denominador
 
     def __add__(self, otro):
-        from entero import Entero
-        if isinstance(otro, Entero):
-            num = Entero(int(otro.__entero) * int(str(self.__denominador)) + int(str(self.__numerador)))
-            return Fraccion(num, self.__denominador)
-        elif isinstance(otro, Fraccion):
-            if self.__denominador == otro.__denominador:
-                temp_numerador = Entero(int(str(self.__numerador + otro.__numerador)))
-                return Fraccion(temp_numerador, self.__denominador)
-            else:
-                raise NotImplementedError("No está implementada la suma con denominadores distintos")
-        
+        if isinstance(otro, e.Entero):
+            num = e.Entero(int(otro.entero) * int(str(self.denominador)) + int(str(self.numerador)))
+            return Fraccion(num, self.denominador)
+        if isinstance(otro, Fraccion):
+            if self.denominador == otro.denominador:
+                temp_numerador = e.Entero(int(str(self.numerador + otro.numerador)))
+                return Fraccion(temp_numerador, self.denominador)
+            raise NotImplementedError("No está implementada la suma con denominadores distintos")
+
     def __sub__(self, otro: "Fraccion") -> "Fraccion":
-        if self.__denominador == otro.__denominador:
-            temp_numerador = self.__numerador - otro.__numerador
-            return Fraccion(temp_numerador, self.__denominador)
-        else:
-            raise NotImplementedError("No está implementada la resta con denominadores distintos")
+        if self.denominador == otro.denominador:
+            temp_numerador = self.numerador - otro.numerador
+            return Fraccion(temp_numerador, self.denominador)
+        raise NotImplementedError("No está implementada la resta con denominadores distintos")
 
     def __mul__(self, otro):
-        from entero import Entero
         if isinstance(otro, Fraccion):
-            resultado_numerador = Entero(int(str(self.__numerador * otro.__numerador)))
-            resultado_denominador = Entero(int(str(self.__denominador * otro.__denominador)))
+            resultado_numerador = e.Entero(int(str(self.numerador * otro.numerador)))
+            resultado_denominador = e.Entero(int(str(self.denominador * otro.denominador)))
             return Fraccion(resultado_numerador, resultado_denominador)
-        elif isinstance(otro, Entero):
-            if int(str(otro.__entero)) % int(str(self.__denominador)) == 0:
-                ans = (int(str(otro.__entero)) * int(str(self.__numerador))) // int(str(self.__denominador))
-                return Entero(ans)
-            else:
-                num = Entero(int(str(otro.__entero)) * int(str(self.__numerador)))
-                return Fraccion(num, self.__denominador)
 
     def __truediv__(self, otro: "Fraccion") -> "Fraccion":
-        resultado_numerador = self.__numerador * otro.__denominador
-        resultado_denominador = self.__denominador * otro.__numerador
+        resultado_numerador = self.numerador * otro.denominador
+        resultado_denominador = self.denominador * otro.numerador
         return Fraccion(resultado_numerador, resultado_denominador) # type: ignore
 
     def __floordiv__(self, otro: "Fraccion") -> "Fraccion":
-        raise ArithmeticError("No se puede hacer una división entera si el denominador es diferente")
-        
+        raise ArithmeticError()
+
     def __ge__(self, otro: "Fraccion") -> bool:
-        # Igualo denominador para poder comparar
-        num1 = self.__numerador * otro.__denominador
-        num2 = otro.__numerador * self.__denominador
+        """ Igualo denominador para poder comparar """
+        num1 = self.numerador * otro.denominador
+        num2 = otro.numerador * self.denominador
 
         return num1 >= num2 #type: ignore
 
     def __lt__(self, otro) -> bool: # type: ignore
-        from entero import Entero
-        # Igualo denominador para poder comparar
+        """ Igualo denominador para poder comparar """
         if isinstance(otro, Fraccion):
-            num1 = self.__numerador * otro.denominador
-            num2 = otro.numerador * self.__denominador
+            num1 = self.numerador * otro.denominador
+            num2 = otro.numerador * self.denominador
 
             return num1 < num2 #type: ignore
-        elif isinstance(otro, Entero):
-            num1 = otro.__entero * self.denominador # type: ignore
-            return num1 < self.numerador #type: ignore
-        
+        elif isinstance(otro, e.Entero):
+            num1 = otro.entero * self.denominador # type: ignore
+            return num1 < self.numerador #type: ignore}
+
+    def suma_fraccion(self, otro: Numero):
+        """ Suma de otro (entero o fracción) a una fracción """
+        if self.denominador == otro.denominador: #type: ignore
+            num = self.numerador + otro.numerador #type: ignore
+            suma = Fraccion(num, self.denominador)
+            return suma
+        raise NotImplementedError("No está implementada la suma con denominadores distintos")
+
+    def _multiplicar_fraccion(self, otro: Numero):
+        """ Multiplicación de otro (entero o fracción) a una fracción """
+        num = self.numerador * otro.numerador     #type: ignore
+        den = self.denominador * otro.denominador #type: ignore
+
+        if den.entero != 0 and num.entero % den.entero == 0: #type: ignore
+            return e.Entero(num.entero // den.entero)        #type: ignore
+
+        return Fraccion(num, den) #type: ignore
+
     @property
-    def numerador (self):
+    def numerador(self):
+        """ Property numerador """
         return self.__numerador
     @property
     def denominador(self):
+        """  Property denominador """
         return self.__denominador
