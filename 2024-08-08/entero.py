@@ -4,7 +4,6 @@
 from numero import Numero
 import fraccion
 
-
 class Entero(Numero):
     """ Clase Entero """
 
