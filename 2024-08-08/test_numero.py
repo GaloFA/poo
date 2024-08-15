@@ -1,13 +1,13 @@
-""" a """
+# pylint: skip-file
 import unittest
 from entero import Entero
 from fraccion import Fraccion
 
 
 class TestNumero(unittest.TestCase):
-    """ a """
+    
     def test_dividir_dos_enteros_da_fraccion_cuando_el_dividendo_no_es_multiplo_del_divisor(self):
-        """ a """
+        
         e1 = Entero(1)
         e2 = Entero(2)
 
@@ -15,7 +15,7 @@ class TestNumero(unittest.TestCase):
         self.assertEqual(res, e1 / e2)
 
     def test_suma_entero_fraccion(self):
-        """ a """
+        
         e1 = Entero(2)
         e2 = Entero(1)
         e3 = Entero(2)
@@ -26,7 +26,7 @@ class TestNumero(unittest.TestCase):
         self.assertEqual(Fraccion(Entero(5), Entero(2)), ans)
 
     def test_suma_entero_fraccion_da_entero_si_denominador_es_divisor_del_entero(self):
-        """ a """
+        
         e1 = Entero(1)
         e2 = Entero(2)
         f1 = Fraccion(e1, e2)
@@ -36,7 +36,7 @@ class TestNumero(unittest.TestCase):
         self.assertEqual(e1, ans)
 
     def test_suma_entero_fraccion_da_fraccion_si_denominador_no_es_divisor_del_entero(self):
-        """ a """
+        
         e1 = Entero(1)
         e2 = Entero(3)
         f1 = Fraccion(e1, e2)
@@ -46,7 +46,7 @@ class TestNumero(unittest.TestCase):
         self.assertEqual(e1, ans)
 
     def test_suma_fraccion_entero_da_entero_si_denominador_es_divisor_del_entero(self):
-        """ a """
+        
         e1 = Entero(1)
         e2 = Entero(2)
         f1 = Fraccion(e1, e2)
@@ -56,7 +56,7 @@ class TestNumero(unittest.TestCase):
         self.assertEqual(e1, ans)
 
     def test_suma_fraccion_entero_da_fraccion_si_denominador_no_es_divisor_del_entero(self):
-        """ a """
+        
         e1 = Entero(1)
         e2 = Entero(3)
         f1 = Fraccion(e1, e2)
