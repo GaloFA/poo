@@ -6,7 +6,7 @@ import entero
 
 class Fraccion(Numero):
     """ Clase Fraccion """
-    def __init__(self, numerador: entero.Entero, denominador: entero.Entero):
+    def __init__(self, numerador: "entero.Entero", denominador: "entero.Entero"):
         if not isinstance(numerador, entero.Entero):
             raise ValueError("El numerador debe ser de tipo Entero")
 
@@ -73,29 +73,36 @@ class Fraccion(Numero):
         num = self.__numerador * otro.__numerador     # type: ignore
         den = self.__denominador * otro.__denominador # type: ignore
 
-        if den.__entero != 0 and num.__entero % den.__entero == 0: # type: ignore
-            return entero.Entero(num.__entero // den.__entero)        # type: ignore
+        if den.entero != 0 and num.entero % den.entero == 0: # type: ignore
+            return entero.Entero(num.entero // den.entero)        # type: ignore
 
         return Fraccion(num, den) # type: ignore
 
     def lt_fraccion(self, otro: Numero):
         """ Retornar si el otro (fracción) es menor que la fracción """
-        numerador1 = self.__numerador * otro.__denominador # type: ignore
-        numerador2 = otro.__numerador * self.__denominador # type: ignore
+        numerador1 = otro.__numerador * self.__denominador # type: ignore
+        numerador2 = self.__numerador * otro.__denominador # type: ignore
 
         return numerador1 < numerador2 # type: ignore
 
     def suma_entero(self, otro: Numero):
         """ Suma de otro (entero) a una fracción """
-        otro = Fraccion(otro, entero.Entero(1)) # type: ignore
-        return otro + self
+        otro_numerador = entero.Entero(otro.__entero) * self.__denominador # type: ignore
+        numerador_final = entero.Entero(otro_numerador + self.__numerador) # type: ignore
+        fraccion_final = Fraccion(numerador_final, self.__denominador)
+
+        if int(str(numerador_final)) % int(str(self.__denominador)) == 0: # type: ignore
+            valor_final = numerador_final // self.__denominador # type: ignore
+            return entero.Entero(valor_final)
+
+        return fraccion_final
 
     def multiplicar_entero(self, otro: Numero):
         """ Multiplicación de otro (entero) a una fracción """
-        num = self.__numerador * otro
-        den = self.__denominador
-        if den.__entero != 0 and num.__entero % den.__entero == 0: #type: ignore
-            return entero.Entero(num.__entero // den.__entero) #type: ignore
+        num = entero.Entero(self.__numerador * otro)
+        den = entero.Entero(self.__denominador)
+        if den != 0 and num % den == 0: #type: ignore
+            return entero.Entero(num // den) #type: ignore
 
         return Fraccion(num, den) #type: ignore
 
@@ -103,12 +110,3 @@ class Fraccion(Numero):
         """ Retornar si el otro (entero) es menor que la fracción """
         num = otro * self.__denominador
         return num < self.__numerador
-
-    @property
-    def numerador(self):
-        """ Property numerador """
-        return self.__numerador
-    @property
-    def denominador(self):
-        """  Property denominador """
-        return self.__denominador

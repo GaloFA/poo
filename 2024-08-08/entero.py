@@ -44,12 +44,11 @@ class Entero(Numero):
         return self.__entero >= otro.__entero
 
     def __lt__(self, otro: Numero) -> bool:
-        return otro._lt_entero(self) # type: ignore
+        return otro.lt_entero(self) # type: ignore
 
     def suma_entero(self, otro: Numero):
         """ Suma de otro (entero) a un entero"""
-        otro = fraccion.Fraccion(otro, self.__entero) # type: ignore
-        return otro + self
+        return Entero(otro.__entero + self.__entero)
 
     def multiplicar_entero(self, otro: Numero):
         """ Multiplicación de otro (entero) a un entero"""
@@ -76,5 +75,5 @@ class Entero(Numero):
 
     @property
     def entero(self):
-        """ Property entero """
+        """ Getter entero """
         return self.__entero

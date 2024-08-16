@@ -5,7 +5,6 @@ from entero import Entero
 from fraccion import Fraccion
 
 
-
 class TestFraccion(unittest.TestCase):
     
 
