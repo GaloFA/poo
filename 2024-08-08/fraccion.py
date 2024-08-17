@@ -65,9 +65,7 @@ class Fraccion(Numero):
     def suma_fraccion(self, otro):
         """ Suma de otro (fracción) a una fracción """
 
-        numerador_final = self.__numerador * otro._Fraccion__denominador + self.__denominador * otro._Fraccion__numerador
-        denominador_final = self.__denominador * otro._Fraccion__denominador
-        return Fraccion(numerador_final, denominador_final)
+        return Fraccion(self.__numerador  + otro._Fraccion__numerador, self.__denominador) # type: ignore
 
     def suma_entero(self, otro):
         """ Suma de otro (entero) a una fracción """
@@ -80,7 +78,9 @@ class Fraccion(Numero):
     def multiplicar_fraccion(self, otro: Numero):
         """ Multiplicación de otro (fracción) a una fracción """
 
-        return Fraccion(self.__numerador * otro._Fraccion__numerador.entero, self.__denominador * otro._Fraccion__denominador.entero) # type: ignore
+        numerador_final = self.__numerador * otro._Fraccion__numerador # type: ignore
+        denominador_final = self.__denominador * otro._Fraccion__denominador # type: ignore
+        return Fraccion(numerador_final, denominador_final)
 
     def multiplicar_entero(self, otro):
         """ Multiplicación de otro (entero) a una fracción """
