@@ -4,7 +4,7 @@ from numero import Numero
 
 
 class ContadorDeLlamadosDecorator(Numero):
-    """Define un contador de llamados para las clases que implementen Numero"""
+    """ Define un contador de llamados para las clases que implementen Número """
 
     def __init__(self, numero: Numero):
         self._numero = numero
