@@ -9,7 +9,7 @@ class IteradorDeColeccion(Iterator):
         self._indice = 0
 
     def __next__(self):
-        if self._indice > len(self._coleccion):
+        if self._indice >= len(self._coleccion):
             raise StopIteration
 
         resultado = self._coleccion[self._indice]
@@ -35,11 +35,30 @@ class ContenedorIterable(Iterable):
             self._elementos2.append(elemento)
 
     def __iter__(self):
-        if len(self._elementos1) != 0 and len(self._elementos2) != 0:
-            raise StopIteration
+        elementos_combinados = self._elementos1 + self._elementos2
+        return IteradorDeColeccion(elementos_combinados)
 
-        if len(self._elementos1) != 0:
-            return IteradorDeColeccion(self._elementos1, tipo)
+class ContenedorIterable2(Iterable):
+    """ Clase de Iterable (usando generaodr) """
 
-        if len(self._elementos2) != 0:
-            return IteradorDeColeccion(self._elementos2)
+    def __init__(self):
+        self._elementos1 = []
+        self._elementos2 = []
+
+    def agregar(self, elemento, tipo):
+        """ Método que agrega un elemento a la colección """
+        if tipo not in (1, 2):
+            raise ValueError(f"No existe este tipo: {tipo}")
+
+        if tipo == 1:
+            self._elementos1.append(elemento)
+
+        elif tipo == 2:
+            self._elementos2.append(elemento)
+
+    def __iter__(self):
+        for elemento in self._elementos1:
+            yield elemento
+
+        for elemento in self._elementos2:
+            yield elemento
