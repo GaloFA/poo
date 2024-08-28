@@ -1,0 +1,36 @@
+Se nos encarga modelar el registro académico de una universidad.
+Cada alumno de la universidad tiene un DNI que lo identifica,
+y puede inscribirse en varias materias a lo largo de su carrera.
+Las materias, por su parte, tienen un nombre, una nota mínima
+para aprobar, y se dictan en cuatrimestres específicos, 
+definidos por un año y el número de cuatrimestre
+(primer o segundo cuatrimestre del año).
+
+El sistema debe permitir inscribir a los alumnos en las materias
+y registrar las notas que obtienen al finalizar cada cuatrimestre.
+Es fundamental que el sistema pueda determinar si un alumno
+aprobó o no una materia en función de la nota obtenida comparada
+con la nota de aprobación establecida para la materia.
+
+Además, necesitamos funcionalidades que nos permitan calcular 
+el promedio general de un alumno en todas las materias que 
+completó, así como el promedio general de todos los
+alumnos que cursaron una materia en particular. 
+También es importante poder saber cuántas materias aprobó un 
+alumno y cuántos alumnos aprobaron una materia específica.
+
+El sistema deberá manejar la información de en qué cuatrimestre
+y año fue cursada cada materia, permitiendo así generar un 
+historial académico detallado para cada alumno. Este historial 
+debe incluir todas las materias cursadas por el alumno, 
+con las notas obtenidas y los cuatrimestres correspondientes.
+
+Por último, el sistema debe ser robusto ante errores.
+Si se intenta inscribir a un alumno en una materia que ya aprobó,
+o si se trata de registrar una nota fuera del rango permitido
+(por ejemplo, menor que 0 o mayor que 10), el sistema debe
+detectar y manejar estos erroresadecuadamente.
+
+Este sistema debe estar bien organizado para que, en el futuro,
+podamos agregar nuevas funcionalidades sin necesidad de realizar
+grandes cambios en el diseño original.

@@ -1,4 +1,4 @@
-"""a """
+""" Clases """
 
 class RegistroAcademico():
     """ Registro académico """
@@ -29,13 +29,31 @@ class Alumno():
         return self.__dni
 
 class Materia():
+    """ Clase que representa materias """
 
-    def __init__(self, nombre, nota):
+    def __init__(self, nombre, nota_minima, cuatrimestre, año):
         self.__nombre = nombre
-        self.__nota = nota
+        self.__nota_minima = nota_minima
+        self.__cuatrimestre = cuatrimestre
+        self.__año = año
 
     def nombre(self):
+        """ Retorna nombre de la materia """
+
         return self.__nombre
 
-    def nota(self):
-        return self.__nota
+    def nota_minima(self):
+        """ Retorna nota """
+
+        return self.__nota_minima
+
+    def cuatrimestre(self):
+        """ Retorna número de cuatrimestre """
+
+        return self.__cuatrimestre
+
+    def año(self): # pylint: disable=non-ascii-name
+
+        """ Retorna año """
+
+        return self.__año
