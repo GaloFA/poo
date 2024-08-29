@@ -50,7 +50,7 @@ class PilaConPrioridad:
         self.max_prioridad = max_prioridad
         self.elementos = []
 
-    def apilar(self, elemento, prioridad):
+    def apilar_prioridad(self, elemento, prioridad):
         """ Método para apilar elementos """
         if prioridad < 0 or prioridad > self.max_prioridad:
             raise ValorPrioridadInvalido("Prioridad no válida")
@@ -60,7 +60,7 @@ class PilaConPrioridad:
 
         self.elementos.append((elemento, prioridad))
 
-    def desapilar(self):
+    def desapilar_prioridad(self):
         """ Método para desapilar elementos """
         if not self.elementos:
             raise PilaVacia("La pila está vacía")
@@ -70,7 +70,7 @@ class PilaConPrioridad:
         length = len(self.elementos)
 
         for i in range(length):
-            prioridad = self.elementos[i]
+            prioridad = self.elementos[i][0]
             if prioridad >= max_prioridad:
                 max_prioridad = prioridad
                 index_max_prioridad = i
@@ -81,4 +81,11 @@ class PilaConPrioridad:
         return len(self.elementos)
 
     def __iter__(self):
-        return reversed([elem[0] for elem in self.elementos])
+        elementos_ordenados = []
+
+        for prioridad_actual in range(self.max_prioridad, -1, -1):
+            for elemento, prioridad in self.elementos:
+                if prioridad == prioridad_actual:
+                    elementos_ordenados.append(elemento)
+
+        return iter(elementos_ordenados)
