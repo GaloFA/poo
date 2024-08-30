@@ -8,7 +8,7 @@ class Checker():
     def __init__(self):
         pass
 
-    def checkWin(self):
+    def check_win(self):
         """ Método que verifica luego de cada jugada si hubo un ganador """
 
         board = Board
@@ -27,4 +27,4 @@ class Checker():
 
 c = Checker()
 
-c.checkWin()
+c.check_win()
