@@ -15,13 +15,8 @@ class TestColecciones(unittest.TestCase):
         contenedor.agregar(10, 2)
 
         elementos_esperados = [5, 3, 8, 4, 10]
-        resultado_elementos = []
-        iterador = iter(contenedor)
         
-        for i in range(len(elementos_esperados)):
-            resultado_elementos.append(next(iterador))
-
-            self.assertEqual(resultado_elementos[i], elementos_esperados[i])
+        self.assertEqual(elementos_esperados, list(contenedor))
 
     def test_02_elemento_esperado_generador(self):
 

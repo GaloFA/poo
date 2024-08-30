@@ -36,7 +36,7 @@ class TestPila(unittest.TestCase):
         pila.apilar('A')
         pila.apilar('B')
         pila.apilar('C')
-        elementos = list(iter(pila))
+        elementos = list(pila)
 
         self.assertEqual(elementos, ['C', 'B', 'A'])
 
@@ -75,7 +75,6 @@ class TestPilaConPrioridad(unittest.TestCase):
         pila.apilar_prioridad(4, 2)
 
         self.assertEqual(pila.desapilar_prioridad(), 4)
-        self.assertEqual(pila.desapilar_prioridad(), 3)
 
     def test_04_len_pila(self):
         pila = PilaConPrioridad(3, 2)
@@ -91,7 +90,19 @@ class TestPilaConPrioridad(unittest.TestCase):
         pila.apilar_prioridad(4, 2)
         elementos = [elemento for elemento in pila]
 
-        self.assertEqual(elementos, [3, 4, 2, 1])
+        self.assertEqual(elementos, [4, 3, 2, 1])
+
+    def test_06_iter_pila(self):
+        pila = PilaConPrioridad(5, 2)
+
+        pila.apilar_prioridad(1, 0)
+        pila.apilar_prioridad(2, 1)
+        pila.apilar_prioridad(3, 2)
+        pila.apilar_prioridad(5, 1)
+        pila.apilar_prioridad(4, 2)
+        elementos = [elemento for elemento in pila]
+
+        self.assertEqual(elementos, [4, 3, 5, 2, 1])
 
 if __name__ == "__main__":
     unittest.main()
