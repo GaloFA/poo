@@ -9,21 +9,26 @@ class Board():
 
     def draw_initial_board(self):
         """ Método que se encarga de dibujar el tablero inicial vacío """
-        board = []
+        drawn_board = []
         for i in range(self.__dimensions):
             for t in range(self.__dimensions):
-                board.append("▢")
+                drawn_board.append("▢")
+        return drawn_board
 
-    def draw_board(self):
+    def draw_board(self, board):
         """ Método que se encarga de dibujar el tablero """
         board = Board(3)
-        board.draw_initial_board()
+        drawn_board = board.draw_initial_board()
+        final_board = ""
 
-        for i in range(0, self.__dimensions * self.__dimensions, 3):
-            print(board[i] + "  | " + board[i + 1] + "  | " + board[i + 2]) #type: ignore
+        for i in range(0, self.__dimensions * self.__dimensions, self.__dimensions):
+            for t in range(self.__dimensions):
+                final_board += drawn_board[t] + "   "
+            print(final_board) # pylint: disable=line-too-long
+            final_board = ""
 
-        return board
+        return final_board
 
-b = Board(3)
+b = Board(5)
 
-b.draw_board()
+b.draw_board(b)
