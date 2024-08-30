@@ -1,6 +1,6 @@
 """ Clases """
 
-class Tablero():
+class Board():
     """ Clase que representa al tablero de juego,
     guarda su estado y sus dimensiones. """
 

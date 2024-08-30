@@ -1,6 +1,6 @@
 """ Clases """
 
-class Casillero():
+class Tile():
     """ Clase que representa a un casillero del
     tablero, además de permitirle designar una
     ficha (X o O) como "valor actual" """
