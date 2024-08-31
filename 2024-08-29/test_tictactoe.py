@@ -18,9 +18,9 @@ class TestBoard(unittest.TestCase):
     def test_01_dibjuar_tablero(self):
         board = Board(3)
 
-        drawn_board = board.draw_board()
+        board_list = board.draw_board(board)
 
-        self.assertEqual(['▢', '▢', '▢', '▢', '▢', '▢', '▢', '▢', '▢'], drawn_board)
+        self.assertEqual(['▢', '▢', '▢', '▢', '▢', '▢', '▢', '▢', '▢'], board_list)
 
 if __name__ == "__main__":
     unittest.main()

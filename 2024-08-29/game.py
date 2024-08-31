@@ -1,4 +1,4 @@
-""" Clases """
+""" Imports """
 
 class Game():
     """ Clase que se encarga de correr el juego """

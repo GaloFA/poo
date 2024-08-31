@@ -1,4 +1,4 @@
-""" Clases """
+""" Imports """
 
 class Player():
     """ Clase de jugador que permite que

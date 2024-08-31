@@ -1,5 +1,6 @@
-""" Clases """
+""" Imports """
 from board import Board
+from list_handler import ListHandler
 
 class Checker():
     """ Clase que verifica luego de cada 
@@ -8,23 +9,21 @@ class Checker():
     def __init__(self):
         pass
 
-    def check_win(self):
+    def check_win_row(self, board: Board):
         """ Método que verifica luego de cada jugada si hubo un ganador """
+        dimensions = board.get_board_dimensions()
 
-        board = Board
-        rows = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
-        columns = [(1, 4, 7), (2, 5, 8), (3, 6, 9)]
-        diagonals = [(1, 5, 9), (3, 5, 7)]
-        position = 1 # starting position
+        for row in range(dimensions):
+            temp_list = ListHandler([])
+            row_start = row * dimensions
 
-        for tile in range(position, 10, 3):
-            print(tile, position)
-            if tile >= 7:
-                position += 1
-                tile = position
-                print(f"inside if: {tile, position}")
-            print(tile,position)
+            for row_element in range(dimensions):
+                element = board[row_start + row_element]
+                temp_list.append(element)
+
+        return temp_list.check_if_elements_inside_list_are_equal()
 
 c = Checker()
+b = Board(3)
 
-c.check_win()
+print(c.check_win_row(b))

@@ -1,34 +1,33 @@
-""" Clases """
+""" Imports """
+from list_handler import ListHandler
 
-class Board():
+class Board(list):
     """ Clase que representa al tablero de juego,
     guarda su estado y sus dimensiones. """
 
     def __init__(self, dimensions):
         self.__dimensions = dimensions
+        self.__board_list = ListHandler(["▢"] * (dimensions ** 2))
 
-    def draw_initial_board(self):
-        """ Método que se encarga de dibujar el tablero inicial vacío """
-        drawn_board = []
-        for i in range(self.__dimensions):
-            for t in range(self.__dimensions):
-                drawn_board.append("▢")
-        return drawn_board
+    def __getitem__(self, index):
+        return self.__board_list[index]
 
-    def draw_board(self, board):
+    def draw_board(self):
         """ Método que se encarga de dibujar el tablero """
-        board = Board(3)
-        drawn_board = board.draw_initial_board()
         final_board = ""
+        iterator = iter(self.__board_list)
 
-        for i in range(0, self.__dimensions * self.__dimensions, self.__dimensions):
-            for t in range(self.__dimensions):
-                final_board += drawn_board[t] + "   "
-            print(final_board) # pylint: disable=line-too-long
-            final_board = ""
+        for _ in range(0, self.__dimensions ** 2, self.__dimensions):
+            for _ in range(self.__dimensions):
+                final_board += next(iterator) + "   "
+            final_board += "\n"
 
         return final_board
 
-b = Board(5)
+    def get_board_list(self):
+        """ Método para acceder a la lista interna del tablero """
+        return self.__board_list.get_list()
 
-b.draw_board(b)
+    def get_board_dimensions(self):
+        """ Método para acceder a las dimensiones del tablero """
+        return self.__dimensions
