@@ -10,7 +10,7 @@ class Checker():
         pass
 
     def check_win_row(self, board: Board):
-        """ Método que verifica luego de cada jugada si hubo un ganador """
+        """ Método que verifica luego de cada jugada si hubo un ganador ( SOLO FILAS ) """
         dimensions = board.get_board_dimensions()
 
         for row in range(dimensions):
@@ -18,8 +18,22 @@ class Checker():
             row_start = row * dimensions
 
             for row_element in range(dimensions):
-                element = board[row_start + row_element]
-                temp_list.append(element)
+                tile_value = board[row_start + row_element]
+                temp_list.append(tile_value)
+
+        return temp_list.check_if_elements_inside_list_are_equal()
+
+    def check_win_column(self, board: Board):
+        """ Método que verifica luego de cada jugada si hubo un ganador ( SOLO COLUMNAS ) """
+        dimensions = board.get_board_dimensions()
+
+        for column in range(dimensions):
+            temp_list = ListHandler([])
+            column_start = column
+
+            for column_element in range(dimensions):
+                tile_value = board[column_element * dimensions + column]
+                temp_list.append(tile_value)
 
         return temp_list.check_if_elements_inside_list_are_equal()
 
@@ -27,3 +41,4 @@ c = Checker()
 b = Board(3)
 
 print(c.check_win_row(b))
+print(c.check_win_column(b))
