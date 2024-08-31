@@ -29,7 +29,6 @@ class Checker():
 
         for column in range(dimensions):
             temp_list = ListHandler([])
-            column_start = column
 
             for column_element in range(dimensions):
                 tile_value = board[column_element * dimensions + column]
