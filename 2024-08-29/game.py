@@ -16,24 +16,17 @@ class Game():
         self.__dimensions = dimensions
         self.__board = Board(self.__dimensions)
         self.__players = [Player("X"), Player("O")]
-        self.__current_player_index = 0
         self.__checker = Checker()
-
-    def switch_player(self):
-        """ Método para manejar turnos """
-
-        self.__current_player_index = (self.__current_player_index + 1) % len(self.__players)
+        self.__current_player_index = 0
 
     def print_board(self):
         """ Método para imprimir el estado actual del tablero """
-
         system("cls")
         print(self.__board.draw_reference_board())
         print(self.__board.draw_board())
 
     def get_player_move(self):
         """ Método para obtener la jugada del jugador actual """
-
         move = None
         while move is None:
             try:
@@ -50,7 +43,6 @@ class Game():
 
     def run(self):
         """ Método del juego ejecutándose """
-
         running = True
         match_finished = False
 
@@ -81,4 +73,5 @@ class Game():
                     print(f"Ganó el jugador {self.__players[self.__current_player_index].tile_type}!")
                     match_finished = True
                 else:
-                    self.switch_player()
+                    self.__players[self.__current_player_index].switch_player()
+                    self.__current_player_index = (self.__current_player_index + 1) % 2

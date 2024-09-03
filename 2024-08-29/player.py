@@ -12,6 +12,8 @@ class Player():
         if tile_type not in ["X", "O"]:
             raise InvalidTileTypeError("El tipo de ficha debe ser 'X' o 'O'")
         self.tile_type = tile_type
+        self.__current_player_index = 0
+        self.__player_quantity = 2
 
     def place_tile(self, board: Board, position: int):
         """ Método para colocar una ficha en una posición específica del tablero """
@@ -24,3 +26,8 @@ class Player():
 
         tile = Tile(board)
         tile.change_tile(position, self.tile_type)
+
+    def switch_player(self):
+        """ Método para manejar turnos """
+
+        self.__current_player_index = (self.__current_player_index + 1) % self.__player_quantity
