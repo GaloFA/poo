@@ -1,6 +1,8 @@
+# pylint: disable=line-too-long, superfluous-parens
 """ Imports """
 from board import Board
-from list_handler import ListHandler
+from collection_handler import CollectionIterable
+
 
 class Checker():
     """ Clase que verifica luego de cada 
@@ -11,33 +13,57 @@ class Checker():
 
     def check_win_row(self, board: Board):
         """ Método que verifica luego de cada jugada si hubo un ganador ( SOLO FILAS ) """
-        dimensions = board.get_board_dimensions()
+        dimensions = board.dimensions()
 
         for row in range(dimensions):
-            temp_list = ListHandler([])
+            temp_list = CollectionIterable()
             row_start = row * dimensions
 
             for row_element in range(dimensions):
-                tile_value = board[row_start + row_element]
+                tile_value = next(iter(board[row_start + row_element]))
                 temp_list.append(tile_value)
 
-        return temp_list.check_if_elements_inside_list_are_equal()
+            if temp_list.check_if_elements_inside_list_are_equal():
+                return True
+
+        return False
 
     def check_win_column(self, board: Board):
         """ Método que verifica luego de cada jugada si hubo un ganador ( SOLO COLUMNAS ) """
-        dimensions = board.get_board_dimensions()
+        dimensions = board.dimensions()
 
         for column in range(dimensions):
-            temp_list = ListHandler([])
+            temp_list = CollectionIterable()
 
             for column_element in range(dimensions):
-                tile_value = board[column_element * dimensions + column]
+                tile_value = next(iter(board[column_element * dimensions + column]))
                 temp_list.append(tile_value)
+
+            if temp_list.check_if_elements_inside_list_are_equal():
+                return True
+
+        return False
+
+    def check_win_first_diagonal(self, board: Board):
+        """ Método que verifica luego de cada jugada si hubo un ganador 
+        ( COLUMNA DE ARRIBA A LA IZQUIERDA HASTA ABAJO A LA DERECHA ) """
+        dimensions = board.dimensions()
+        temp_list = CollectionIterable()
+
+        for i in range(dimensions):
+            tile_value = next(iter(board[i * (dimensions + 1)]))
+            temp_list.append(tile_value)
 
         return temp_list.check_if_elements_inside_list_are_equal()
 
-c = Checker()
-b = Board(3)
+    def check_win_second_diagonal(self, board: Board):
+        """ Método que verifica luego de cada jugada si hubo un ganador 
+        ( COLUMNA DE ARRIBA A LA DERECHA HASTA ABAJO A LA IZQUIERDA ) """
+        dimensions = board.dimensions()
+        temp_list = CollectionIterable()
 
-print(c.check_win_row(b))
-print(c.check_win_column(b))
+        for i in range(dimensions):
+            tile_value = next(iter(board[(i + 1) * (dimensions - 1)]))
+            temp_list.append(tile_value)
+
+        return temp_list.check_if_elements_inside_list_are_equal()

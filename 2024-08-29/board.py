@@ -1,5 +1,6 @@
+# pylint: disable=line-too-long, superfluous-parens
 """ Imports """
-from list_handler import ListHandler
+from collection_handler import CollectionIterable
 
 class Board(list):
     """ Clase que representa al tablero de juego,
@@ -7,7 +8,10 @@ class Board(list):
 
     def __init__(self, dimensions):
         self.__dimensions = dimensions
-        self.__board_list = ListHandler(["▢"] * (dimensions ** 2))
+        self.__board_list = CollectionIterable()
+
+        for _ in range(dimensions ** 2):
+            self.__board_list.append("▢")
 
     def __getitem__(self, index):
         return self.__board_list[index]
@@ -24,10 +28,12 @@ class Board(list):
 
         return final_board
 
-    def get_board_list(self):
-        """ Método para acceder a la lista interna del tablero """
+    @property
+    def board_list(self):
+        """ Getter de la lista del tablero """
         return self.__board_list.get_list()
 
-    def get_board_dimensions(self):
-        """ Método para acceder a las dimensiones del tablero """
+    @property
+    def dimensions(self):
+        """ Getter de las dimensiones del tablero """
         return self.__dimensions
