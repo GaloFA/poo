@@ -32,3 +32,8 @@ class InvalidTileTypeError(Exception):
     """ Excepción para tipo de ficha inválido """
     def __init__(self, message):
         super().__init__(message)
+
+class OccupiedTile(Exception):
+    """ Excepción para posición ocupada """
+    def __init__(self, message):
+        pass

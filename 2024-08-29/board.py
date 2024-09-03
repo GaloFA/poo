@@ -25,6 +25,19 @@ class Board(list):
 
         self.__board_list[index] = value
 
+    def draw_reference_board(self):
+        """ Tablero que se utiliza para dar una referencia del número
+        de las posiciones de cada casillero en el tablero """
+        reference_board = ""
+
+        for row in range(self.__dimensions):
+            for col in range(self.__dimensions):
+                position = row * self.__dimensions + col
+                reference_board += f"{position:3} "
+            reference_board += "\n"
+
+        return reference_board
+
     def draw_board(self):
         """ Método que se encarga de dibujar el tablero """
         final_board = ""

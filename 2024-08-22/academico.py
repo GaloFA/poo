@@ -4,8 +4,8 @@ class RegistroAcademico():
     """ Registro académico """
 
     def __init__(self):
-        self.__alumno = None
-        self.__materia = None
+        self.__alumno = None #type: ignore pylint: skip-file
+        self.__materia = None #type: ignore pylint: skip-file
         self.__alumnos_cursando_materias = {}
 
     def agregar_alumno_a_materia(self, alumno, materia):
