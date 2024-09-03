@@ -26,7 +26,16 @@ class CollectionIterable(Iterable):
         return iter(self.__elements)
 
     def __getitem__(self, index):
+        if not (0 <= index < len(self.__elements)):
+            raise IndexError("Index out of range")
+
         return self.__elements[index]
+
+    def __setitem__(self, index, value):
+        if not (0 <= index < len(self.__elements)):
+            raise IndexError("Index out of range")
+
+        self.__elements[index] = value
 
     def append(self, item):
         """ Método que permite agregar elementos a la lista que se está manejando """
@@ -37,7 +46,7 @@ class CollectionIterable(Iterable):
         element = self.__elements[0]
 
         for item in self.__elements:
-            if element != item:
+            if element != item and item != "▢":
                 return False
 
         return True

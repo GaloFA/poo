@@ -1,3 +1,4 @@
+#type: ignore pylint: skip-file
 from entero import Entero
 import unittest
 

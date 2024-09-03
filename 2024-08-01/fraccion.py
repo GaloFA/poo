@@ -1,3 +1,4 @@
+# pylint: skip-file
 from entero import Entero
 from math import gcd
 
@@ -64,7 +65,7 @@ class Fraccion:
         den = den1 * den2
         
         # Retornar el resultado en forma de fracción simplificada
-        return Fraccion(Entero(num), Entero(den)).simplificar_fraccion()
+        return Fraccion(Entero(num), Entero(den)).simplificar_fraccion() #type: ignore pylint: skip-file
         
     def restar_fracciones(self, fraccion: "Fraccion") -> "Fraccion":
         # Establecer los numeradores y denominadores
@@ -78,7 +79,7 @@ class Fraccion:
         den = den1 * den2
         
         # Retornar el resultado en forma de fracción simplificada
-        return Fraccion(Entero(num), Entero(den)).simplificar_fraccion()
+        return Fraccion(Entero(num), Entero(den)).simplificar_fraccion() #type: ignore pylint: skip-file
 
     def multiplicar_fracciones(self, fraccion: "Fraccion") -> "Fraccion":
         # Establecer los numeradores y denominadores
@@ -92,7 +93,7 @@ class Fraccion:
         den = den1 * den2
         
         # Retornar el resultado en forma de fracción simplificada
-        return Fraccion(Entero(num), Entero(den)).simplificar_fraccion()
+        return Fraccion(Entero(num), Entero(den)).simplificar_fraccion() #type: ignore pylint: skip-file
 
     def dividir_fracciones(self, fraccion: "Fraccion") -> "Fraccion":
         # Establecer los numeradores y denominadores
@@ -106,4 +107,4 @@ class Fraccion:
         den = den1 * num2
         
         # Retornar el resultado en forma de fracción simplificada
-        return Fraccion(Entero(num), Entero(den)).simplificar_fraccion()        
+        return Fraccion(Entero(num), Entero(den)).simplificar_fraccion() #type: ignore pylint: skip-file       

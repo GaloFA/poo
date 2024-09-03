@@ -8,13 +8,22 @@ class Board(list):
 
     def __init__(self, dimensions):
         self.__dimensions = dimensions
-        self.__board_list = CollectionIterable()
+        self.__board_list: CollectionIterable = CollectionIterable()
 
         for _ in range(dimensions ** 2):
             self.__board_list.append("▢")
 
     def __getitem__(self, index):
         return self.__board_list[index]
+
+    def __setitem__(self, index, value):
+        if not (0 <= index < self.__dimensions ** 2):
+            raise IndexError("Index out of range")
+
+        if value not in ["X", "O", "▢"]:
+            raise ValueError("Invalid tile value")
+
+        self.__board_list[index] = value
 
     def draw_board(self):
         """ Método que se encarga de dibujar el tablero """

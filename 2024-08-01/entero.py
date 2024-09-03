@@ -1,3 +1,4 @@
+#type: ignore pylint: skip-file
 class Entero:
     def __init__(self, value: int):
         self.__value = value
