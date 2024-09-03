@@ -1,6 +1,6 @@
-# pylint: disable=line-too-long, superfluous-parens
+# pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
 """ Imports """
-from collections.abc import Iterable, Iterator # pylint: disable=unused-import
+from collections.abc import Iterable, Iterator
 
 class CollectionIterator(Iterator):
     """ Clase de iterador """
@@ -46,7 +46,10 @@ class CollectionIterable(Iterable):
         element = self.__elements[0]
 
         for item in self.__elements:
-            if element != item and item != "▢":
+            if element != item:
+                return False
+
+            if item == "▢":
                 return False
 
         return True

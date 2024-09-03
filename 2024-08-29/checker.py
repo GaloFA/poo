@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long, superfluous-parens
+# pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
 """ Imports """
 from board import Board
 from collection_handler import CollectionIterable
