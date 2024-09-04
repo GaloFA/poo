@@ -13,6 +13,7 @@ class Game():
 
     def reset(self, dimensions: int):
         """ Método para reiniciar el juego con las dimensiones actuales """
+
         self.__dimensions = dimensions
         self.__board = Board(self.__dimensions)
         self.__players = [Player("X"), Player("O")]
@@ -21,7 +22,9 @@ class Game():
 
     def run(self):
         """ Ejecutar el juego """
+
         running = True
+
         while running:
             if self.game_finished():
                 running = self.play_again()
@@ -30,31 +33,40 @@ class Game():
 
     def game_finished(self):
         """ Método que maneja el final de una partida """
-        self.__board._Board__board_render.print_board() # type: ignore
+
+        self.__board.render.print_board() # type: ignore
+
         if self.__checker.check_tie(self.__board):
             print("Empate!")
             return True
-        elif self.__checker.check_win(self.__board):
+
+        if self.__checker.check_win(self.__board):
             winner = self.__players[(self.__current_player_index + 1) % 2]
             print(f"Ganó el jugador {winner.tile_type}!")
             return True
+
         return False
 
     def play_again(self):
         """ Método que regunta si el usuario quiere seguir jugando """
+
         response = input("¿Quiere seguir jugando? (s/n): ").lower()
+
         while response not in ["s", "n"]:
             print("Respuesta inválida (s/n)")
             response = input("¿Quiere seguir jugando? (s/n): ").lower()
+
         if response == "s":
             self.reset(self.__dimensions)
             return True
+
         return False
 
     def play_turn(self):
         """ Método que se encarga de manejar cada turno, printeando el tablero,
         haciendo la jugada del jugador y pasandole el turno al siguiente jugador """
-        self.__board._Board__board_render.print_board() # Printear el tablero actual # type: ignore
+
+        self.__board.render.print_board() # Printear el tablero actual # type: ignore
 
         move = self.__players[self.__current_player_index].get_player_move(self.__board) # Obtener la jugada que hace el jugador
 

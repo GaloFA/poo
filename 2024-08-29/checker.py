@@ -13,6 +13,7 @@ class Checker():
 
     def check_win_row(self, board: Board):
         """ Método que verifica luego de cada jugada si hubo un ganador ( SOLO FILAS ) """
+
         dimensions = board.dimensions
 
         for row in range(dimensions):
@@ -30,6 +31,7 @@ class Checker():
 
     def check_win_column(self, board: Board):
         """ Método que verifica luego de cada jugada si hubo un ganador ( SOLO COLUMNAS ) """
+
         dimensions = board.dimensions
 
         for column in range(dimensions):
@@ -47,6 +49,7 @@ class Checker():
     def check_win_first_diagonal(self, board: Board):
         """ Método que verifica luego de cada jugada si hubo un ganador 
         ( COLUMNA DE ARRIBA A LA IZQUIERDA HASTA ABAJO A LA DERECHA ) """
+
         dimensions = board.dimensions
         temp_list = CollectionIterable()
 
@@ -59,6 +62,7 @@ class Checker():
     def check_win_second_diagonal(self, board: Board):
         """ Método que verifica luego de cada jugada si hubo un ganador 
         ( COLUMNA DE ARRIBA A LA DERECHA HASTA ABAJO A LA IZQUIERDA ) """
+
         dimensions = board.dimensions
         temp_list = CollectionIterable()
 
@@ -77,6 +81,7 @@ class Checker():
 
     def check_tie(self, board: Board):
         """Método que verifica si hubo un empate."""
+
         if self.check_win(board):
             return False
 

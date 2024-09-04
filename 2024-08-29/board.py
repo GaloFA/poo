@@ -33,14 +33,23 @@ class Board(list):
         for i in range(self.__dimensions ** 2):
             if self.__board_list[i] == "▢":
                 return False
+
         return True
 
     @property
     def board_list(self):
         """ Getter de la lista del tablero """
+
         return self.__board_list.get_list()
 
     @property
     def dimensions(self):
         """ Getter de las dimensiones del tablero """
+
         return self.__dimensions
+
+    @property
+    def render(self):
+        """ Getter del board_render """
+
+        return self.__board_render

@@ -13,6 +13,7 @@ class BoardRender():
     def draw_reference_board(self):
         """ Tablero que se utiliza para dar una referencia del número
         de las posiciones de cada casillero en el tablero """
+
         reference_board = ""
 
         for row in range(self.__board_temp.dimensions):
@@ -25,6 +26,7 @@ class BoardRender():
 
     def draw_board(self):
         """ Método que se encarga de dibujar el tablero """
+
         final_board = ""
         iterator = iter(self.__board_temp.board_list)
 
@@ -37,6 +39,7 @@ class BoardRender():
 
     def print_board(self):
         """ Método para imprimir el estado actual del tablero """
+
         system("cls")
         print("\n")
         print(self.draw_reference_board())
