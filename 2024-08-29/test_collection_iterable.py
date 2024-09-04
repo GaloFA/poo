@@ -3,55 +3,45 @@ import unittest
 from collection_handler import CollectionIterable
 
 class TestCollectionIterable(unittest.TestCase):
-    def test_01_append_and_getitem(self):
-        collection = CollectionIterable()
+    def setUp(self):
+        self.collection = CollectionIterable()
 
-        collection.append("A")
-        collection.append("B")
-        collection.append("C")
-        self.assertEqual(collection[0], "A")
-        self.assertEqual(collection[1], "B")
-        self.assertEqual(collection[2], "C")
+    def test_01_append_and_getitem(self):
+        self.collection.append("A")
+        self.collection.append("B")
+        self.collection.append("C")
+        self.assertEqual(self.collection[0], "A")
+        self.assertEqual(self.collection[1], "B")
+        self.assertEqual(self.collection[2], "C")
 
     def test_02_index_out_of_range_error(self):
-        collection = CollectionIterable()
-
         with self.assertRaises(IndexError):
-            _ = collection[0]
+            _ = self.collection[0]
 
     def test_03_check_if_elements_inside_list_are_equal_true(self):
-        collection = CollectionIterable()
+        self.collection.append("X")
+        self.collection.append("X")
+        self.collection.append("X")
 
-        collection.append("X")
-        collection.append("X")
-        collection.append("X")
-
-        self.assertTrue(collection.check_if_elements_inside_list_are_equal())
+        self.assertTrue(self.collection.check_if_elements_inside_list_are_equal())
 
     def test_04_check_if_elements_inside_list_are_equal_false(self):
-        collection = CollectionIterable()
+        self.collection.append("X")
+        self.collection.append("O")
+        self.collection.append("X")
 
-        collection.append("X")
-        collection.append("O")
-        collection.append("X")
-
-        self.assertFalse(collection.check_if_elements_inside_list_are_equal())
+        self.assertFalse(self.collection.check_if_elements_inside_list_are_equal())
 
     def test_05_iterable(self):
-        collection = CollectionIterable()
+        self.collection.append("X")
+        self.collection.append("O")
 
-        collection.append("X")
-        collection.append("O")
-
-        iterator = iter(collection)
+        iterator = iter(self.collection)
         self.assertEqual(next(iterator), "X")
         self.assertEqual(next(iterator), "O")
 
-
     def test_06_stop_iteration(self):
-        collection = CollectionIterable()
-
-        iterator = iter(collection)
+        iterator = iter(self.collection)
 
         with self.assertRaises(StopIteration):
             next(iterator)

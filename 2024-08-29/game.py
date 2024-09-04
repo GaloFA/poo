@@ -30,12 +30,13 @@ class Game():
 
     def game_finished(self):
         """ Método que maneja el final de una partida """
-        self.__board.__board_render.print_board()
+        self.__board._Board__board_render.print_board() # type: ignore
         if self.__checker.check_tie(self.__board):
             print("Empate!")
             return True
         elif self.__checker.check_win(self.__board):
-            print(f"Ganó el jugador {self.__players[self.__current_player_index].tile_type}!")
+            winner = self.__players[(self.__current_player_index + 1) % 2]
+            print(f"Ganó el jugador {winner.tile_type}!")
             return True
         return False
 
@@ -45,15 +46,15 @@ class Game():
         while response not in ["s", "n"]:
             print("Respuesta inválida (s/n)")
             response = input("¿Quiere seguir jugando? (s/n): ").lower()
-        if response == 's':
+        if response == "s":
             self.reset(self.__dimensions)
-            return False
-        return True
+            return True
+        return False
 
     def play_turn(self):
         """ Método que se encarga de manejar cada turno, printeando el tablero,
         haciendo la jugada del jugador y pasandole el turno al siguiente jugador """
-        self.__board.__board_render.print_board() # Printear el tablero actual
+        self.__board._Board__board_render.print_board() # Printear el tablero actual # type: ignore
 
         move = self.__players[self.__current_player_index].get_player_move(self.__board) # Obtener la jugada que hace el jugador
 
