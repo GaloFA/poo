@@ -13,6 +13,7 @@ class Tile():
 
     def change_tile(self, index: int, tile_type: str):
         """ Método que se encarga de cambiar la ficha en una determinada posición """
+
         if not (0 <= index < self.__max_index_value):
             raise InvalidPositionValueError("No se puede ingresar a una posición fuera del rango establecido")
 

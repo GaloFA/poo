@@ -9,7 +9,6 @@ def main():
         except ValueError:
             print("Por favor, ingrese un número entero válido.")
 
-    
     game = Game(dimensions)
     game.run()
 

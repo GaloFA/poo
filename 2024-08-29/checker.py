@@ -67,3 +67,17 @@ class Checker():
             temp_list.append(tile_value)
 
         return temp_list.check_if_elements_inside_list_are_equal()
+
+    def check_tie(self, board: Board):
+        """Método que verifica si hubo un empate."""
+        if self.check_win(board):
+            return False
+
+        return board.check_board_is_full()
+
+    def check_win(self, board: Board):
+        """ Método que se encarga de utilizar todos los otros métodos
+        para que, en vez de tener que llamarlos uno por uno, poder
+        llamar todos desde este mismo método. """
+
+        return self.check_win_row(board) or self.check_win_column(board) or self.check_win_first_diagonal(board) or self.check_win_second_diagonal(board)
