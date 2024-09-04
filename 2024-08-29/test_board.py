@@ -1,7 +1,7 @@
 # pylint: skip-file
 import unittest
 from board import Board
-
+from tile import Tile
 
 class TestBoard(unittest.TestCase):
 
@@ -45,14 +45,51 @@ class TestBoard(unittest.TestCase):
 
         expected_output = "▢   ▢   ▢   \n▢   ▢   ▢   \n▢   ▢   ▢   \n"
 
-        self.assertEqual(board.draw_board(), expected_output)
+        self.assertEqual(board.__board_render.draw_board(), expected_output)
 
     def test_07_board_draw_dimensions_5(self):
         board = Board(5)
 
         expected_output = "▢   ▢   ▢   ▢   ▢   \n▢   ▢   ▢   ▢   ▢   \n▢   ▢   ▢   ▢   ▢   \n▢   ▢   ▢   ▢   ▢   \n▢   ▢   ▢   ▢   ▢   \n"
 
-        self.assertEqual(board.draw_board(), expected_output)
+        self.assertEqual(board.__board_render.draw_board(), expected_output)
+
+    def test_08_check_board_is_full_true(self):
+        board = Board(3)
+        tile = Tile(board)
+
+        for i in range(9):
+            tile.change_tile(i, "X")
+
+        self.assertTrue(board.check_board_is_full())
+
+    def test_09_check_board_is_full_false(self):
+        board = Board(3)
+        tile = Tile(board)
+
+        tile.change_tile(0, "X")
+
+        self.assertFalse(board.check_board_is_full())
+    
+    def test_10_board_set_item_index_out_of_range(self):
+        board = Board(3)
+
+        with self.assertRaises(IndexError):
+            board[9] = "X"
+
+    def test_11_board_set_item_invalid_tile_value(self):
+        board = Board(3)
+
+        with self.assertRaises(ValueError):
+            board[0] = "A"
+    
+    def test_13_board_initialization(self):
+        board = Board(4)
+        
+        self.assertEqual(board.dimensions, 4)
+        self.assertEqual(len(board.board_list), 16)
+        for i in range(board.dimensions):
+            self.assertTrue(board[i] == "▢")
 
 if __name__ == "__main__":
     unittest.main()

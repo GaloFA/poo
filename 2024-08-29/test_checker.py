@@ -93,6 +93,43 @@ class TestChecker(unittest.TestCase):
         tile.change_tile(6, "O")
 
         self.assertFalse(checker.check_win_second_diagonal(board))
+    
+    def test_09_check_tie_true(self):
+        board = Board(3)
+        checker = Checker()
+        tile = Tile(board)
+
+        tile.change_tile(0, "X")
+        tile.change_tile(1, "O")
+        tile.change_tile(2, "X")
+        tile.change_tile(3, "X")
+        tile.change_tile(4, "O")
+        tile.change_tile(5, "X")
+        tile.change_tile(6, "O")
+        tile.change_tile(7, "X")
+        tile.change_tile(8, "O")
+
+
+        self.assertTrue(checker.check_tie(board))
+
+    def test_10_check_tie_false(self):
+        board = Board(3)
+        checker = Checker()
+        tile = Tile(board)
+
+        tile.change_tile(0, "X")
+        tile.change_tile(1, "O")
+        tile.change_tile(2, "X")
+        tile.change_tile(3, "X")
+        tile.change_tile(4, "O")
+        tile.change_tile(5, "X")
+        tile.change_tile(6, "O")
+        tile.change_tile(7, "O")
+        tile.change_tile(8, "X")
+
+
+        self.assertFalse(checker.check_tie(board))
+
 
 
 if __name__ == '__main__':

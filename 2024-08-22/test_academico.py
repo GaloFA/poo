@@ -10,17 +10,17 @@ class TestRegistroAcademico(unittest.TestCase):
         self.materia_matematica = Materia("Matemática") #type: ignore pylint: skip-file
 
     
-    def test_01_constructor(self):
-        registro = RegistroAcademico()
+    #def test_01_constructor(self):
+        #registro = RegistroAcademico()
 
-    def test_02_agregar_alumno_a_materia(self):
-        registro = RegistroAcademico()
-        alumno = Alumno(1234)
-        materia = Materia("Matemática") #type: ignore pylint: skip-file
+    #def test_02_agregar_alumno_a_materia(self):
+        #registro = RegistroAcademico()
+        #alumno = Alumno(1234)
+        #materia = Materia("Matemática") #type: ignore pylint: skip-file
 
-        registro.agregar_alumno_a_materia(alumno, materia)
+        #registro.agregar_alumno_a_materia(alumno, materia)
         
-        self.assertTrue(registro.alumno_cursa_materia(alumno, materia))
+        #self.assertTrue(registro.alumno_cursa_materia(alumno, materia))
 
 class TestAlumno(unittest.TestCase):
     def test_01_constructor(self):

@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long, superfluous-parens, too-few-public-methods, attribute-defined-outside-init
+# pylint: disable=line-too-long, superfluous-parens, too-few-public-methods, attribute-defined-outside-init, protected-access
 """ Imports """
 from board import Board
 from player import Player
@@ -20,42 +20,45 @@ class Game():
         self.__current_player_index = 0
 
     def run(self):
-        """ Método del juego ejecutándose """
+        """ Ejecutar el juego """
         running = True
-        match_finished = False
-
         while running:
-            if match_finished:
-                print("Partida finalizada")
-                response = input("¿Quiere seguir jugando? (s/n): ").lower()
-
-                while response not in ["s", "n"]:
-                    print("Respuesta inválida (s/n)")
-                    response = input("¿Quiere seguir jugando? (s/n): ").lower()
-
-                if response == 's':
-                    self.reset(self.__dimensions)
-                    match_finished = False
-                else:
-                    running = False
+            if self.game_finished():
+                running = self.play_again()
             else:
-                self.__board.print_board()
-                move = self.__players[self.__current_player_index].get_player_move(
-                    self.__board)
-                self.__players[self.__current_player_index].place_tile(
-                    self.__board, move)
+                self.play_turn()
 
-                if self.__checker.check_tie(self.__board):
-                    self.__board.print_board()
-                    print("Empate!")
-                    match_finished = True
+    def game_finished(self):
+        """ Método que maneja el final de una partida """
+        self.__board.__board_render.print_board()
+        if self.__checker.check_tie(self.__board):
+            print("Empate!")
+            return True
+        elif self.__checker.check_win(self.__board):
+            print(f"Ganó el jugador {self.__players[self.__current_player_index].tile_type}!")
+            return True
+        return False
 
-                if self.__checker.check_win(self.__board):
-                    self.__board.print_board()
-                    print(f"Ganó el jugador {
-                          self.__players[self.__current_player_index].tile_type}!")
-                    match_finished = True
-                else:
-                    self.__players[self.__current_player_index].switch_player()
-                    self.__current_player_index = (
-                        self.__current_player_index + 1) % 2
+    def play_again(self):
+        """ Método que regunta si el usuario quiere seguir jugando """
+        response = input("¿Quiere seguir jugando? (s/n): ").lower()
+        while response not in ["s", "n"]:
+            print("Respuesta inválida (s/n)")
+            response = input("¿Quiere seguir jugando? (s/n): ").lower()
+        if response == 's':
+            self.reset(self.__dimensions)
+            return False
+        return True
+
+    def play_turn(self):
+        """ Método que se encarga de manejar cada turno, printeando el tablero,
+        haciendo la jugada del jugador y pasandole el turno al siguiente jugador """
+        self.__board.__board_render.print_board() # Printear el tablero actual
+
+        move = self.__players[self.__current_player_index].get_player_move(self.__board) # Obtener la jugada que hace el jugador
+
+        self.__players[self.__current_player_index].place_tile(self.__board, move) # Realizar el movimiento que eligió el jugador
+
+        self.__players[self.__current_player_index].switch_player() # Turno nuevo, cambia el jugador que está jugando
+
+        self.__current_player_index = (self.__current_player_index + 1) % 2 # Establece el jugador actual

@@ -38,5 +38,34 @@ class TestPlayer(unittest.TestCase):
         with self.assertRaises(InvalidTileTypeError):
             Player("A")
 
+    def test_05_switch_player(self):
+        player_x = Player("X")
+        initial_index = player_x._Player__current_player_index # type: ignore
+
+        player_x.switch_player()
+        self.assertEqual(player_x._Player__current_player_index, (initial_index + 1) % player_x._Player__player_quantity) # type: ignore
+
+        player_x.switch_player()
+        self.assertEqual(player_x._Player__current_player_index, initial_index) # type: ignore
+
+    def test_06_place_tile_on_empty_board(self):
+        board = Board(3)
+        player_x = Player("X")
+
+        player_x.place_tile(board, 4)
+
+        self.assertEqual(board[4], "X")
+
+    def test_07_place_tile_on_first_and_last_position(self):
+        board = Board(3)
+        player_x = Player("X")
+
+        player_x.place_tile(board, 0)
+        self.assertEqual(board[0], "X")
+
+        player_x.place_tile(board, 8)
+        self.assertEqual(board[8], "X")
+
+
 if __name__ == '__main__':
     unittest.main()
