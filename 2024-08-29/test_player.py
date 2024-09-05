@@ -4,6 +4,7 @@ from board import Board
 from player import Player
 from tile import OccupiedTile, InvalidTileTypeError
 
+
 class TestPlayer(unittest.TestCase):
 
     def setUp(self):
@@ -30,11 +31,11 @@ class TestPlayer(unittest.TestCase):
             Player("A")
 
     def test_05_switch_player(self):
-        initial_index = self.player_x._Player__current_player_index # type: ignore
+        initial_index = self.player_x._current_player_index
         self.player_x.switch_player()
-        self.assertEqual(self.player_x._Player__current_player_index, (initial_index + 1) % self.player_x._Player__player_quantity) # type: ignore
+        self.assertEqual(self.player_x._current_player_index, (initial_index + 1) % self.player_x._player_quantity)
         self.player_x.switch_player()
-        self.assertEqual(self.player_x._Player__current_player_index, initial_index) # type: ignore
+        self.assertEqual(self.player_x._current_player_index, initial_index)
 
     def test_06_place_tile_on_empty_board(self):
         self.player_x.place_tile(self.board, 4)
@@ -45,6 +46,7 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual(self.board[0], "X")
         self.player_x.place_tile(self.board, 8)
         self.assertEqual(self.board[8], "X")
+
 
 if __name__ == '__main__':
     unittest.main()

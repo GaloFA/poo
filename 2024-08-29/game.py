@@ -3,6 +3,7 @@
 from board import Board
 from player import Player
 from checker import Checker
+import player_interaction
 
 
 class Game():
@@ -14,50 +15,36 @@ class Game():
     def reset(self, dimensions: int):
         """ Método para reiniciar el juego con las dimensiones actuales """
 
-        self.__dimensions = dimensions
-        self.__board = Board(self.__dimensions)
-        self.__players = [Player("X"), Player("O")]
-        self.__checker = Checker()
-        self.__current_player_index = 0
+        self._dimensions = dimensions
+        self._board = Board(self._dimensions)
+        self._players = [Player("X"), Player("O")]
+        self._checker = Checker()
+        self._current_player_index = 0
 
     def run(self):
         """ Ejecutar el juego """
 
         running = True
+        interaction = player_interaction.PlayerInteraction()
 
         while running:
             if self.game_finished():
-                running = self.play_again()
+                running = interaction.play_again(self)
             else:
                 self.play_turn()
 
     def game_finished(self):
         """ Método que maneja el final de una partida """
 
-        self.__board.render.print_board() # type: ignore
+        self._board.render.print_board() # type: ignore
 
-        if self.__checker.check_tie(self.__board):
+        if self._checker.check_tie(self._board):
             print("Empate!")
             return True
 
-        if self.__checker.check_win(self.__board):
-            winner = self.__players[(self.__current_player_index + 1) % 2]
+        if self._checker.check_win(self._board):
+            winner = self._players[(self._current_player_index + 1) % 2]
             print(f"Ganó el jugador {winner.tile_type}!")
-            return True
-
-        return False
-
-    def play_again(self):
-        """ Método que regunta si el usuario quiere seguir jugando """
-
-        response = input("¿Quiere seguir jugando? (s/n): ").lower()
-
-        while response not in ["s", "n"]:
-            print("Respuesta inválida (s/n)")
-            response = input("¿Quiere seguir jugando? (s/n): ").lower()
-
-        if response == "s":
-            self.reset(self.__dimensions)
             return True
 
         return False
@@ -66,12 +53,17 @@ class Game():
         """ Método que se encarga de manejar cada turno, printeando el tablero,
         haciendo la jugada del jugador y pasandole el turno al siguiente jugador """
 
-        self.__board.render.print_board() # Printear el tablero actual # type: ignore
+        self._board.render.print_board() # Printear el tablero actual # type: ignore
 
-        move = self.__players[self.__current_player_index].get_player_move(self.__board) # Obtener la jugada que hace el jugador
+        move = self._players[self._current_player_index].get_player_move(self._board) # Obtener la jugada que hace el jugador
 
-        self.__players[self.__current_player_index].place_tile(self.__board, move) # Realizar el movimiento que eligió el jugador
+        self._players[self._current_player_index].place_tile(self._board, move) # Realizar el movimiento que eligió el jugador
 
-        self.__players[self.__current_player_index].switch_player() # Turno nuevo, cambia el jugador que está jugando
+        self._players[self._current_player_index].switch_player() # Turno nuevo, cambia el jugador que está jugando
 
-        self.__current_player_index = (self.__current_player_index + 1) % 2 # Establece el jugador actual
+        self._current_player_index = (self._current_player_index + 1) % 2 # Establece el jugador actual
+
+    @property
+    def get_game_instance(self):
+        """ Retorna la instancia del juego """
+        return self
