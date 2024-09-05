@@ -24,7 +24,7 @@ class CollectionIterable(Iterable):
         self._elements = []
 
     def __iter__(self):
-        return iter(self._elements)
+        return CollectionIterator(self._elements)
 
     def __getitem__(self, index):
         if not (0 <= index < len(self._elements)):
