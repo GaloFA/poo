@@ -57,6 +57,7 @@ class CollectionIterable(Iterable):
 
         return True
 
+    @property
     def get_list(self):
         """ Retorna la lista """
 

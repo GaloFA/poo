@@ -40,7 +40,7 @@ class Board(list):
     def board_list(self):
         """ Getter de la lista del tablero """
 
-        return self._board_list.get_list()
+        return self._board_list.get_list
 
     @property
     def dimensions(self):
