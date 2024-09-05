@@ -7,7 +7,7 @@ class Board(list):
     """ Clase que representa al tablero de juego,
     guarda su estado y sus dimensiones. """
 
-    def __init__(self, dimensions):
+    def __init__(self, dimensions: int):
         self._dimensions = dimensions
         self._board_list: CollectionIterable = CollectionIterable()
         self._board_render: BoardRender = BoardRender(self)
