@@ -18,7 +18,7 @@ class Tile():
             raise InvalidPositionValueError("No se puede ingresar a una posición fuera del rango establecido")
 
         if tile_type not in ["X", "O"]:
-            raise InvalidTileTypeError("El tipo de ficha debe ser 'O' o 'X'")
+            raise InvalidTileTypeError("El tipo de ficha debe ser 'X' u 'O'")
 
         self._board[index] = tile_type
 
