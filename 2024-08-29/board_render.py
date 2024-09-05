@@ -7,8 +7,8 @@ class BoardRender():
     """ Clase que representa al tablero de juego,
     guarda su estado y sus dimensiones. """
 
-    def __init__(self, board_temp: "board.Board"):
-        self._board_temp = board_temp
+    def __init__(self, board_instance: "board.Board"):
+        self._board_instance = board_instance
 
     def draw_reference_board(self):
         """ Tablero que se utiliza para dar una referencia del número
@@ -16,9 +16,9 @@ class BoardRender():
 
         reference_board = ""
 
-        for row in range(self._board_temp.dimensions):
-            for col in range(self._board_temp.dimensions):
-                position = row * self._board_temp.dimensions + col # Representa la posición de cada casillero en el tablero
+        for row in range(self._board_instance.dimensions):
+            for col in range(self._board_instance.dimensions):
+                position = row * self._board_instance.dimensions + col # Representa la posición de cada casillero en el tablero
                 reference_board += f"{position}   " # Agrega cada posición a un string y la formatea para que tenga formato de tablero
             reference_board += "\n"
 
@@ -28,10 +28,10 @@ class BoardRender():
         """ Método que se encarga de dibujar el tablero """
 
         final_board = ""
-        iterator = iter(self._board_temp.board_list)
+        iterator = iter(self._board_instance.board_list)
 
-        for _ in range(0, self._board_temp.dimensions ** 2, self._board_temp.dimensions):
-            for _ in range(self._board_temp.dimensions):
+        for _ in range(0, self._board_instance.dimensions ** 2, self._board_instance.dimensions):
+            for _ in range(self._board_instance.dimensions):
                 final_board += f"{next(iterator)}   " # Genera el tablero en su estado actual
             final_board += "\n" # Agrega nuevas lineas para poner el formato de tablero correcto
 
