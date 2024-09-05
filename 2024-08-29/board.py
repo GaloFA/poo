@@ -15,10 +15,10 @@ class Board(list):
         for _ in range(dimensions ** 2):
             self._board_list.append("▢")
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int):
         return self._board_list[index]
 
-    def __setitem__(self, index, value):
+    def __setitem__(self, index: int, value: str):
         if not (0 <= index < self._dimensions ** 2):
             raise IndexError("Index out of range")
 

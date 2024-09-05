@@ -32,16 +32,16 @@ class CollectionIterable(Iterable):
 
         return self._elements[index]
 
-    def __setitem__(self, index, value):
+    def __setitem__(self, index: int, value: str):
         if not (0 <= index < len(self._elements)):
             raise IndexError("Index out of range")
 
         self._elements[index] = value
 
-    def append(self, item):
+    def append(self, value: str):
         """ Método que permite agregar elementos a la lista que se está manejando """
 
-        self._elements.append(item)
+        self._elements.append(value)
 
     def check_if_elements_inside_list_are_equal(self) -> bool:
         """ Método que verifica si los elementos dentro de una lista son iguales """

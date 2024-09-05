@@ -11,6 +11,7 @@ class Player():
     def __init__(self, tile_type: str):
         if tile_type not in ["X", "O"]:
             raise InvalidTileTypeError("El tipo de ficha debe ser 'X' o 'O'")
+
         self.tile_type = tile_type
         self._current_player_index = 0
         self._player_quantity = 2
@@ -31,24 +32,3 @@ class Player():
         """ Método para manejar turnos """
 
         self._current_player_index = (self._current_player_index + 1) % self._player_quantity
-
-    def get_player_move(self, board: Board):
-        """ Método para obtener la jugada del jugador actual """
-
-        move = None
-        while move is None:
-            try:
-                move = int(input(f"Jugador {self.tile_type}, ingrese su jugada (0-{board.dimensions ** 2 - 1}): "))
-
-                if move < 0 or move >= board.dimensions ** 2:
-                    print("Jugada inválida. (Index out of range)")
-                    move = None
-
-                elif board[move] != "▢":
-                    print("Jugada inválida. Posición ya ocupada.")
-                    move = None
-
-            except ValueError:
-                print("Input inválido. Hay que ingresar un número.")
-
-        return move

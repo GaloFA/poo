@@ -20,16 +20,16 @@ class Game():
         self._players = [Player("X"), Player("O")]
         self._checker = Checker()
         self._current_player_index = 0
+        self._interaction = player_interaction.PlayerInteraction()
 
     def run(self):
         """ Ejecutar el juego """
 
         running = True
-        interaction = player_interaction.PlayerInteraction()
 
         while running:
             if self.game_finished():
-                running = interaction.play_again(self)
+                running = self._interaction.play_again(self)
             else:
                 self.play_turn()
 
@@ -55,7 +55,7 @@ class Game():
 
         self._board.render.print_board() # Printear el tablero actual # type: ignore
 
-        move = self._players[self._current_player_index].get_player_move(self._board) # Obtener la jugada que hace el jugador
+        move = self._interaction.get_player_move(self._board, self._players[self._current_player_index]) # Obtener la jugada que hace el jugador
 
         self._players[self._current_player_index].place_tile(self._board, move) # Realizar el movimiento que eligió el jugador
 
