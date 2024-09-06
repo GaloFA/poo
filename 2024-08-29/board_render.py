@@ -1,6 +1,7 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
 """ Imports """
 from os import system
+import platform
 import board
 
 class BoardRender():
@@ -39,8 +40,10 @@ class BoardRender():
 
     def print_board(self):
         """ Método para imprimir el estado actual del tablero """
-
-        system("cls")
+        if platform.system() == "Windows":
+            system("cls")
+        else:
+            system("clear")
         print("\n")
         print(self.draw_reference_board())
         print(self.draw_board())

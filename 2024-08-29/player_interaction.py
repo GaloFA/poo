@@ -1,5 +1,6 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods, attribute-defined-outside-init, protected-access
 """ Imports """
+from time import sleep
 import game
 from player import Player
 from board import Board
@@ -19,11 +20,15 @@ class PlayerInteraction():
 
                 if move < 0 or move >= board.dimensions ** 2:
                     print("Jugada inválida. (Index out of range)")
+                    sleep(1.5)
                     move = None
+                    board._board_render.print_board()
 
                 elif board[move] != "▢":
                     print("Jugada inválida. Posición ya ocupada.")
+                    sleep(1.5)
                     move = None
+                    board._board_render.print_board()
 
             except ValueError:
                 print("Input inválido. Hay que ingresar un número.")

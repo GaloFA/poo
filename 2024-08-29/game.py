@@ -36,7 +36,7 @@ class Game():
     def game_finished(self):
         """ Método que maneja el final de una partida """
 
-        self._board.render.print_board() # type: ignore
+        self._board.render.print_board()
 
         if self._checker.check_tie(self._board):
             print("Empate!")
@@ -53,7 +53,7 @@ class Game():
         """ Método que se encarga de manejar cada turno, printeando el tablero,
         haciendo la jugada del jugador y pasandole el turno al siguiente jugador """
 
-        self._board.render.print_board() # Printear el tablero actual # type: ignore
+        self._board.render.print_board() # Printear el tablero actual
 
         move = self._interaction.get_player_move(self._board, self._players[self._current_player_index]) # Obtener la jugada que hace el jugador
 
