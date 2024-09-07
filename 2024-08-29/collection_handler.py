@@ -28,13 +28,13 @@ class CollectionIterable(Iterable):
 
     def __getitem__(self, index):
         if not (0 <= index < len(self._elements)):
-            raise IndexError("Index out of range")
+            raise IndexError("Index fuera de rango")
 
         return self._elements[index]
 
     def __setitem__(self, index: int, value: str):
         if not (0 <= index < len(self._elements)):
-            raise IndexError("Index out of range")
+            raise IndexError("Index fuera de rango")
 
         self._elements[index] = value
 

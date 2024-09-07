@@ -20,10 +20,10 @@ class Board(list):
 
     def __setitem__(self, index: int, value: str):
         if not (0 <= index < self._dimensions ** 2):
-            raise IndexError("Index out of range")
+            raise IndexError("Index fuera de rango")
 
         if value not in ["X", "O", "▢"]:
-            raise ValueError("Invalid tile value")
+            raise ValueError("Tipo de ficha inválido")
 
         self._board_list[index] = value
 

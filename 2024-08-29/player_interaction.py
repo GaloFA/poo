@@ -19,7 +19,7 @@ class PlayerInteraction():
                 move = int(input(f"Jugador {player.tile_type}, ingrese su jugada (0-{board.dimensions ** 2 - 1}): "))
 
                 if move < 0 or move >= board.dimensions ** 2:
-                    print("Jugada inválida. (Index out of range)")
+                    print("Jugada inválida. (Index fuera de rango)")
                     sleep(1.5)
                     move = None
                     board._board_render.print_board()
@@ -32,6 +32,8 @@ class PlayerInteraction():
 
             except ValueError:
                 print("Input inválido. Hay que ingresar un número.")
+                sleep(1.5)
+                board._board_render.print_board()
 
         return move
 
@@ -56,6 +58,9 @@ class PlayerInteraction():
         while True:
             try:
                 dimensions = int(input("Ingrese las dimensiones del tablero: "))
+                if dimensions <= 0:
+                    raise ValueError("Debe ser un entero mayor o igual que cero")
+
                 break
 
             except ValueError:
