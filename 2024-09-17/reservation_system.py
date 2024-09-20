@@ -12,13 +12,13 @@ class ReservationSystem:
         """ Método que hace una reserva """
         room = next((r for r in self._rooms if r.name == room_name), None)
         if not room:
-            raise ValueError(f"Room {room_name} not found")
+            raise ValueError(f"La sala {room_name} no existe")
 
         new_reservation = Reservation(room, date, start_time, end_time)
 
         for reservation in self._reservations:
             if new_reservation.conflicts_with(reservation):
-                raise ValueError(f"Room {room_name} is already reserved for the given time")
+                raise ValueError(f"La sala {room_name} ya esta reservada")
 
         self._reservations.append(new_reservation)
 
@@ -28,7 +28,7 @@ class ReservationSystem:
             if reservation.room.name == room_name and reservation.date == date and reservation.start_time == start_time:
                 self._reservations.remove(reservation)
                 return
-        raise ValueError("No matching reservation found")
+        raise ValueError("No existe la reserva")
 
     def list_reservations(self, date):
         """ Método que retorna una lista de las reservas activas en un determinado día """
