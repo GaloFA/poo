@@ -11,8 +11,10 @@ class RoomManagement():
         """ Método que agrega una sala """
         room = Room(name, capacity)
         self._rooms.append(room)
+        return room
 
     def remove_room(self, name, capacity):
         """ Método que agrega una sala """
         room = Room(name, capacity)
         self._rooms.remove(room)
+        return room
