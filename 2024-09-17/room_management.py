@@ -4,8 +4,7 @@ from room import Room
 
 class RoomManagement():
     """ Clase que maneja las salas del lugar """
-    def __init__(self, room: "Room") -> None:
-        self._room = room
+    def __init__(self) -> None:
         self._rooms = []
 
     def add_room(self, name, capacity):

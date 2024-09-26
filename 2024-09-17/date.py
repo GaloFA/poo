@@ -11,5 +11,11 @@ class Date:
     def __eq__(self, other):
         return (self._day, self._month, self._year) == (other._day, other._month, other._year)
 
+    def __ge__(self, other):
+        return (self._day, self._month, self._year) >= (other._day, other._month, other._year)
+
+    def __lt__(self, other):
+        return (self._day, self._month, self._year) < (other._day, other._month, other._year)
+
     def __str__(self):
         return f"{self._day:02}/{self._month:02}/{self._year}"

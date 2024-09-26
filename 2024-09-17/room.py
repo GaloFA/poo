@@ -7,5 +7,10 @@ class Room:
         self._name = name
         self._capacity = capacity
 
-    def __str__(self):
-        return f"Room {self._name} (Capacity: {self._capacity})"
+    def __eq__(self, other):
+        return self._name == other._name and self._capacity == other._capacity
+
+    @property
+    def name(self):
+        """ Property name """
+        return self._name
