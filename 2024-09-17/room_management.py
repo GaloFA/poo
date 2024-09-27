@@ -18,3 +18,8 @@ class RoomManagement():
         room = Room(name, capacity)
         self._rooms.remove(room)
         return room
+
+    @property
+    def rooms(self):
+        """ Rooms """
+        return self._rooms
