@@ -1,12 +1,11 @@
 # pylint: skip-file
 import unittest
-from room import Room
-from room_management import RoomManagement
+from room_manager import RoomManager
 
 class TestRoomManagement(unittest.TestCase):
 
     def setUp(self):
-        self.room_management = RoomManagement()
+        self.room_management = RoomManager()
 
     def test_01_añadir_sala(self):
         self.room_management.add_room("Sala 1", 10)

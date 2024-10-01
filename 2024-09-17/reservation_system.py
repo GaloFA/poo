@@ -1,12 +1,12 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
 """ Imports """
 from reservation import Reservation
-from room_management import RoomManagement
+from room_manager import RoomManager
 
 class ReservationSystem:
     """ Clase que representa el sistema de reservas """
     def __init__(self):
-        self._room_management = RoomManagement()
+        self._room_management = RoomManager()
         self._reservations = []
 
     def make_reservation(self, room_name, start_datetime, end_datetime):
