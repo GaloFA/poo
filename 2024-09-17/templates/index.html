@@ -31,7 +31,10 @@
     {% endif %}
 
     <a href="{{ url_for('reservation') }}" class="btn btn-success">Make a New Reservation</a>
-    <a href="{{ url_for('reservation') }}" class="btn btn-danger">Cancel a Reservation</a>
+    <a href="{{ url_for('cancel') }}" class="btn btn-danger">Cancel a Reservation</a>
+    <div class="my-12"><p></p></div>
+    <a href="{{ url_for('add_room') }}" class="btn btn-success">Add room</a>
+    <a href="{{ url_for('remove_room') }}" class="btn btn-danger">Remove room</a>
     
 </body>
 

@@ -18,6 +18,10 @@ class RoomManager():
         self._rooms.remove(room)
         return room
 
+    def list_rooms(self):
+        """ Método que muestra salas """
+        return self._rooms
+
     @property
     def rooms(self):
         """ Rooms """

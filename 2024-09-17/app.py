@@ -10,9 +10,9 @@ app = Flask(__name__)
 def create_system():
     """ Create system """
     res_system = ReservationSystem()
-    res_system._room_management.add_room("Sala 1", 10)
-    res_system._room_management.add_room("Sala 2", 20)
-    res_system._room_management.add_room("Sala 3", 30)
+    res_system._room_manager.add_room("Sala 1", 10)
+    res_system._room_manager.add_room("Sala 2", 20)
+    res_system._room_manager.add_room("Sala 3", 30)
 
     res_system.make_reservation("Sala 1", DateTime(2024, 9, 20, 14, 30, 0), DateTime(2024, 9, 20, 15, 30, 0))
     res_system.make_reservation("Sala 1", DateTime(2024, 9, 20, 15, 31, 0), DateTime(2024, 9, 20, 16, 30, 0))
@@ -26,7 +26,7 @@ reservation_system = create_system()
 @app.route('/', methods=['GET'])
 def home():
     """ Home """
-    reservations = reservation_system.list_reservations(Date(2024, 9, 20))
+    reservations = reservation_system.list_all_reservations()
 
     reservation_data = []
     for res in reservations:
@@ -66,9 +66,54 @@ def reservation():
             reservation_system.make_reservation(room_name, start_datetime, end_datetime)
             return redirect(url_for('home'))
         except ValueError as e:
-            return render_template('reservation.html', rooms=reservation_system._room_management.rooms, error=str(e))
+            return render_template('reservation.html', rooms=reservation_system._room_manager.rooms, error=str(e))
 
-    return render_template('reservation.html', rooms=reservation_system._room_management.rooms)
+    return render_template('reservation.html', rooms=reservation_system._room_manager.rooms)
+
+@app.route('/cancel', methods=['GET', 'POST'])
+def cancel():
+    """ Cancel reservation """
+    room_name = str(request.form.get('room_name'))
+    start_datetime_str = str(request.form.get('start_datetime'))
+    print(start_datetime_str)
+
+#    try:
+    date_str, time_str = start_datetime_str.split(' ')
+    year, month, day = [int(x) for x in date_str.split('/')]
+    hour, minute, second = [int(x) for x in time_str.split(':')]
+    start_datetime = DateTime(day, month, year, hour, minute, second)
+
+    #reservation_system.cancel_reservation(room_name, start_datetime)
+#    except ValueError as e:
+#        reservations = reservation_system.reservations
+#        reservation_data = [(res.room.name, res.start_datetime, res.end_datetime) for res in reservations]
+#        return render_template('cancel.html', error=str(e), reservations=reservation_data)
+
+    return redirect(url_for('cancel'))
+
+@app.route('/add_room', methods=['GET', 'POST'])
+def add_room():
+    """ Add room """
+    if request.method == 'POST':
+        room_name = request.form['room_name']
+        capacity = int(request.form['capacity'])
+        reservation_system._room_manager.add_room(room_name, capacity)
+        return redirect(url_for('home'))
+
+    return render_template('add_room.html')
+
+
+@app.route('/remove_room', methods=['GET', 'POST'])
+def remove_room():
+    """ Remove room """
+    if request.method == 'POST':
+        room_name = request.form['room_name']
+        capacity = int(request.form['capacity'])
+        reservation_system._room_manager.remove_room(room_name, capacity)
+        return redirect(url_for('home'))
+
+    rooms = reservation_system._room_manager.rooms
+    return render_template('remove_room.html', rooms=rooms)
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

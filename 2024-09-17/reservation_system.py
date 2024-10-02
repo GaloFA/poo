@@ -2,16 +2,17 @@
 """ Imports """
 from reservation import Reservation
 from room_manager import RoomManager
+from mydatetime import DateTime
 
 class ReservationSystem:
     """ Clase que representa el sistema de reservas """
     def __init__(self):
-        self._room_management = RoomManager()
+        self._room_manager = RoomManager()
         self._reservations = []
 
     def make_reservation(self, room_name, start_datetime, end_datetime):
         """ Método que hace una reserva """
-        room = next((r for r in self._room_management.rooms if r.name == room_name), None)
+        room = next((r for r in self._room_manager.rooms if r.name == room_name), None)
         if not room:
             raise ValueError(f"La sala {room_name} no existe")
 
@@ -23,7 +24,7 @@ class ReservationSystem:
 
         self._reservations.append(new_reservation)
 
-    def cancel_reservation(self, room_name, start_datetime):
+    def cancel_reservation(self, room_name, start_datetime: "DateTime"):
         """ Método que cancela una reserva """
         for reservation in self._reservations:
             if reservation.room.name == room_name and reservation.start_datetime == start_datetime:
@@ -35,12 +36,14 @@ class ReservationSystem:
         """ Método que retorna una lista de las reservas activas en un determinado día """
         reservation_list = []
         for reservation in self._reservations:
-            # Ensure reservation's date and the input date are both Date objects for comparison
             if reservation.start_datetime.date == date:
                 reservation_list.append(reservation)
 
         return reservation_list
 
+    def list_all_reservations(self):
+        """ Método que retorna una lista de todas las reservas activas """
+        return self._reservations
 
     @property
     def reservations(self):
