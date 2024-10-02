@@ -14,14 +14,12 @@
             <label for="room_name" class="form-label">Select Room</label>
             <select class="form-select" id="room_name" name="room_name" required>
                 {% for room in rooms %}
-                <option value="{{ room.name }}">{{ room.name }} (Capacity: {{ room._capacity }})</option>
+                <option value="{{ room.name }}">{{ room.name }}</option>
                 {% endfor %}
             </select>
         </div>
-        <div class="mb-3">
-            <label for="capacity" class="form-label">Capacity</label>
-            <input type="number" class="form-control" id="capacity" name="capacity" min="1" required>
-        </div>
+        <!-- Remove capacity input -->
+        <input type="hidden" name="capacity" id="capacity">
         <button type="submit" class="btn btn-danger">Remove Room</button>
     </form>
 

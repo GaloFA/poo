@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long, superfluous-parens, too-few-public-methods, unused-import, protected-access
+# pylint: disable=line-too-long, superfluous-parens, too-few-public-methods, unused-import, protected-access, arguments-out-of-order
 """ Imports """
 
 from flask import Flask, redirect, url_for, render_template, request
@@ -73,23 +73,26 @@ def reservation():
 @app.route('/cancel', methods=['GET', 'POST'])
 def cancel():
     """ Cancel reservation """
-    room_name = str(request.form.get('room_name'))
-    start_datetime_str = str(request.form.get('start_datetime'))
-    print(start_datetime_str)
+    if request.method == 'POST':
+        room_name = str(request.form.get('room_name'))
+        start_datetime_str = str(request.form.get('start_datetime'))
 
-#    try:
-    date_str, time_str = start_datetime_str.split(' ')
-    year, month, day = [int(x) for x in date_str.split('/')]
-    hour, minute, second = [int(x) for x in time_str.split(':')]
-    start_datetime = DateTime(day, month, year, hour, minute, second)
+        try:
+            date_str, time_str = start_datetime_str.split(' ')
+            year, month, day = [int(x) for x in date_str.split('/')]
+            hour, minute, second = [int(x) for x in time_str.split(':')]
+            start_datetime = DateTime(year, month, day, hour, minute, second)
 
-    #reservation_system.cancel_reservation(room_name, start_datetime)
-#    except ValueError as e:
-#        reservations = reservation_system.reservations
-#        reservation_data = [(res.room.name, res.start_datetime, res.end_datetime) for res in reservations]
-#        return render_template('cancel.html', error=str(e), reservations=reservation_data)
+            reservation_system.cancel_reservation(room_name, start_datetime)
+            return redirect(url_for('home'))  # Redirect to home after cancellation
+        except ValueError as e:
+            reservations = reservation_system.list_all_reservations()
+            reservation_data = [(res.room.name, res.start_datetime, res.end_datetime) for res in reservations]
+            return render_template('cancel.html', error=str(e), reservations=reservation_data)
 
-    return redirect(url_for('cancel'))
+    reservations = reservation_system.list_all_reservations()
+    reservation_data = [(res.room.name, res.start_datetime, res.end_datetime) for res in reservations]
+    return render_template('cancel.html', reservations=reservation_data)
 
 @app.route('/add_room', methods=['GET', 'POST'])
 def add_room():
@@ -102,18 +105,31 @@ def add_room():
 
     return render_template('add_room.html')
 
-
 @app.route('/remove_room', methods=['GET', 'POST'])
 def remove_room():
-    """ Remove room """
+    """ Remove room and its reservations """
     if request.method == 'POST':
         room_name = request.form['room_name']
-        capacity = int(request.form['capacity'])
-        reservation_system._room_manager.remove_room(room_name, capacity)
-        return redirect(url_for('home'))
+
+        room = next((room for room in reservation_system._room_manager.rooms if room.name == room_name), None)
+
+        if room is not None:
+            capacity = room._capacity
+
+            reservations_to_remove = reservation_system.reservations.copy()
+            for res in reservations_to_remove:
+                if res.room.name == room_name:
+                    reservation_system.cancel_reservation(res.room.name, res.start_datetime)
+
+            reservation_system._room_manager.remove_room(room_name, capacity)
+            return redirect(url_for('home'))
+        else:
+            return render_template('remove_room.html', rooms=reservation_system._room_manager.rooms, error="Room not found")
 
     rooms = reservation_system._room_manager.rooms
     return render_template('remove_room.html', rooms=rooms)
+
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
