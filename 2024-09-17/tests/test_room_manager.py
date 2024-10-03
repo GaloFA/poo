@@ -1,6 +1,6 @@
 # pylint: skip-file
 import unittest
-from room_manager import RoomManager
+from negocio.room_manager import RoomManager
 
 class TestRoomManagement(unittest.TestCase):
 

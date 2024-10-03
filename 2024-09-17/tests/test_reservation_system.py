@@ -1,15 +1,15 @@
 # pylint: skip-file
 import unittest
-from reservation_system import ReservationSystem
-from mydatetime import DateTime
+from negocio.reservation_system import ReservationSystem
+from negocio.mydatetime import DateTime
 
 class TestReservationSystem(unittest.TestCase):
 
     def setUp(self):
         self.system = ReservationSystem()
         
-        self.system._room_management.add_room("Sala 1", 10)
-        self.system._room_management.add_room("Sala 2", 20)
+        self.system._room_manager.add_room("Sala 1", 10)
+        self.system._room_manager.add_room("Sala 2", 20)
         
         self.start_datetime = DateTime(20, 9, 2024, 14, 0, 0)
         self.end_datetime = DateTime(20, 9, 2024, 15, 0, 0)

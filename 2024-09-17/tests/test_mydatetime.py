@@ -1,6 +1,6 @@
 # pylint: skip-file
 import unittest
-from mydatetime import DateTime
+from negocio.mydatetime import DateTime
 
 class TestDateTime(unittest.TestCase):
 

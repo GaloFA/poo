@@ -1,7 +1,7 @@
 # pylint: skip-file
 import unittest
-from mydatetime import DateTime
-from reservation import Reservation
+from negocio.mydatetime import DateTime
+from negocio.reservation import Reservation
 
 
 class TestReservation(unittest.TestCase):

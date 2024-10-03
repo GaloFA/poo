@@ -2,8 +2,8 @@
 """ Imports """
 
 from flask import Flask, redirect, url_for, render_template, request
-from reservation_system import ReservationSystem
-from mydatetime import DateTime, Date
+from negocio.reservation_system import ReservationSystem
+from negocio.mydatetime import DateTime, Date
 
 app = Flask(__name__)
 
