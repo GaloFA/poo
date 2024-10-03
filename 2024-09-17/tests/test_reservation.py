@@ -1,7 +1,7 @@
 # pylint: skip-file
 import unittest
-from negocio.mydatetime import DateTime
-from negocio.reservation import Reservation
+from business.mydatetime import DateTime
+from business.reservation import Reservation
 
 
 class TestReservation(unittest.TestCase):
@@ -37,6 +37,7 @@ class TestReservation(unittest.TestCase):
         expected_str = f"Reservation in {self.room1} from {
             self.start_time1} to {self.end_time1}"
         self.assertEqual(str(self.reservation1), expected_str)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,18 +1,21 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
 """ Imports """
-from reservation import Reservation
-from room_manager import RoomManager
-from mydatetime import DateTime
+from business.reservation import Reservation
+from business.room_manager import RoomManager
+from business.mydatetime import DateTime
+
 
 class ReservationSystem:
     """ Clase que representa el sistema de reservas """
+
     def __init__(self):
         self._room_manager = RoomManager()
         self._reservations = []
 
     def make_reservation(self, room_name, start_datetime, end_datetime):
         """ Método que hace una reserva """
-        room = next((r for r in self._room_manager.rooms if r.name == room_name), None)
+        room = next(
+            (r for r in self._room_manager.rooms if r.name == room_name), None)
         if not room:
             raise ValueError(f"La sala {room_name} no existe")
 

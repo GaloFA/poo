@@ -1,6 +1,7 @@
 # pylint: skip-file
 import unittest
-from negocio.mydatetime import DateTime
+from business.mydatetime import DateTime
+
 
 class TestDateTime(unittest.TestCase):
 
@@ -29,6 +30,7 @@ class TestDateTime(unittest.TestCase):
     def test_04_string(self):
         self.assertTrue(str(self.datetime1) == "20/09/2024 14:30:00")
         self.assertTrue(str(self.datetime3) == "09/06/2024 10:00:00")
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,9 +1,11 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
 """ Imports """
-from mydatetime import DateTime
+from business.mydatetime import DateTime
+
 
 class Reservation:
     """ Clase que representa una reserva de una sala """
+
     def __init__(self, room, start_datetime: "DateTime", end_datetime: "DateTime"):
         self._room = room
         self._start_datetime = start_datetime

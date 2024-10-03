@@ -1,6 +1,7 @@
 # pylint: skip-file
 import unittest
-from negocio.room_manager import RoomManager
+from business.room_manager import RoomManager
+
 
 class TestRoomManagement(unittest.TestCase):
 
@@ -21,6 +22,7 @@ class TestRoomManagement(unittest.TestCase):
     def test_03_remover_sala_inexistente(self):
         with self.assertRaises(ValueError):
             self.room_management.remove_room("Sala 1", 10)
+
 
 if __name__ == '__main__':
     unittest.main()
