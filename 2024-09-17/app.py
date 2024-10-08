@@ -3,10 +3,9 @@
 
 from flask import Flask, redirect, url_for, render_template, request
 from business.reservation_system import ReservationSystem
-from business.mydatetime import DateTime, Date
+from business.mydatetime import DateTime
 
 app = Flask(__name__)
-
 
 def create_system():
     """ Create system """
@@ -95,7 +94,6 @@ def cancel():
             start_datetime = DateTime(year, month, day, hour, minute, second)
 
             reservation_system.cancel_reservation(room_name, start_datetime)
-            # Redirect to home after cancellation
             return redirect(url_for('home'))
         except ValueError as e:
             reservations = reservation_system.list_all_reservations()
@@ -149,4 +147,4 @@ def remove_room():
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True, threaded=False)
