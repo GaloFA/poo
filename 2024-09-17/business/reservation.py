@@ -1,5 +1,5 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
-""" Imports """
+""" Módulo que contiene una representación de una reserva con una sala asignada, fecha y hora de inicio y de fin """
 from business.mydatetime import DateTime
 
 

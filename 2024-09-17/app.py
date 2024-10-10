@@ -1,5 +1,5 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods, unused-import, protected-access, arguments-out-of-order
-""" Imports """
+""" Módulo que contiene la aplicación Flask para el sistema de reservas """
 
 from flask import Flask, redirect, url_for, render_template, request
 from business.reservation_system import ReservationSystem
@@ -10,21 +10,7 @@ app = Flask(__name__)
 def create_system():
     """ Create system """
     res_system = ReservationSystem()
-    res_system._room_manager.add_room("Sala 1", 10)
-    res_system._room_manager.add_room("Sala 2", 20)
-    res_system._room_manager.add_room("Sala 3", 30)
-
-    res_system.make_reservation("Sala 1", DateTime(
-        2024, 9, 20, 14, 30, 0), DateTime(2024, 9, 20, 15, 30, 0))
-    res_system.make_reservation("Sala 1", DateTime(
-        2024, 9, 20, 15, 31, 0), DateTime(2024, 9, 20, 16, 30, 0))
-    res_system.make_reservation("Sala 2", DateTime(
-        2024, 9, 20, 16, 30, 0), DateTime(2024, 9, 20, 17, 30, 0))
-    res_system.make_reservation("Sala 3", DateTime(
-        2024, 9, 20, 18, 30, 0), DateTime(2024, 9, 20, 19, 30, 0))
-
     return res_system
-
 
 reservation_system = create_system()
 
@@ -33,6 +19,7 @@ reservation_system = create_system()
 def home():
     """ Home """
     reservations = reservation_system.list_all_reservations()
+    rooms = reservation_system._room_manager.rooms
 
     reservation_data = []
     for res in reservations:
@@ -42,7 +29,14 @@ def home():
             res.end_datetime
         ))
 
-    return render_template('index.html', reservations=reservation_data)
+    room_data = []
+    for rm in rooms:
+        room_data.append((
+            rm.name,
+            rm._capacity
+        ))
+
+    return render_template('index.html', reservations=reservation_data, rooms = room_data)
 
 
 @app.route('/reservation', methods=['GET', 'POST'])
@@ -129,15 +123,13 @@ def remove_room():
             (room for room in reservation_system._room_manager.rooms if room.name == room_name), None)
 
         if room is not None:
-            capacity = room._capacity
-
             reservations_to_remove = reservation_system.reservations.copy()
             for res in reservations_to_remove:
                 if res.room.name == room_name:
                     reservation_system.cancel_reservation(
                         res.room.name, res.start_datetime)
 
-            reservation_system._room_manager.remove_room(room_name, capacity)
+            reservation_system._room_manager.remove_room(room_name)
             return redirect(url_for('home'))
         else:
             return render_template('remove_room.html', rooms=reservation_system._room_manager.rooms, error="Room not found")

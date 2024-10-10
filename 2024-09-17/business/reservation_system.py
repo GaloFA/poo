@@ -1,5 +1,5 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
-""" Imports """
+""" Módulo que contiene un sistema de reservas, pudiendo hacerlas, cancelarlas o listarlas. """
 from business.reservation import Reservation
 from business.room_manager import RoomManager
 from business.mydatetime import DateTime
@@ -15,26 +15,35 @@ class ReservationSystem:
         self.load_reservations()
 
     def load_reservations(self):
-        """ Load reservations from the database into the system """
-        reservations_data = self._reservation_dao.list_reservations()
-        for room_name, start_datetime_str, end_datetime_str in reservations_data:
-            start_date_str, start_time_str = start_datetime_str.split(' ')
-            start_day, start_month, start_year = map(int, start_date_str.split('/'))
-            start_hour, start_minute, start_second = map(int, start_time_str.split(':'))
-            start_datetime = DateTime(start_day, start_month, start_year, start_hour, start_minute, start_second)
+        """Carga reservas desde la base de datos.
+    
+        Ejemplo de uso: self.load_reservations()
 
-            end_date_str, end_time_str = end_datetime_str.split(' ')
-            end_day, end_month, end_year = map(int, end_date_str.split('/'))
-            end_hour, end_minute, end_second = map(int, end_time_str.split(':'))
-            end_datetime = DateTime(end_day, end_month, end_year, end_hour, end_minute, end_second)
-
-            room = next((r for r in self._room_manager.rooms if r.name == room_name), None)
-            if room:
-                self._reservations.append(Reservation(room, start_datetime, end_datetime))
+        Returns:
+            None: Este método no devuelve ningún valor. Carga las reservas en la lista interna de reservas.
+        """
+        reservations = self._reservation_dao.list_reservations()
+        for room_name, start_datetime, end_datetime in reservations:
+            print(f"Loaded reservation: {room_name}, {start_datetime} to {end_datetime}")
+            self._reservations.append(Reservation(room_name, start_datetime, end_datetime))
 
 
     def make_reservation(self, room_name, start_datetime, end_datetime):
-        """ Método que hace una reserva """
+        """Realiza una reserva para una sala especificada.
+
+        Ejemplo de uso: self.make_reservation('Sala A', inicio, fin)
+
+        Args:
+            room_name (str): El nombre de la sala a reservar.
+            start_datetime (datetime): La fecha y hora de inicio de la reserva.
+            end_datetime (datetime): La fecha y hora de fin de la reserva.
+
+        Raises:
+            ValueError: Si la sala no existe o si la reserva entra en conflicto con una reserva existente.
+
+        Returns:
+            None: Este método no devuelve ningún valor. Agrega la reserva a la lista interna de reservas.
+        """
         room = next(
             (r for r in self._room_manager.rooms if r.name == room_name), None)
         if not room:
@@ -50,7 +59,20 @@ class ReservationSystem:
         self._reservation_dao.add_reservation(room_name, start_datetime, end_datetime)
 
     def cancel_reservation(self, room_name, start_datetime: "DateTime"):
-        """ Método que cancela una reserva """
+        """Cancela una reserva existente para una sala específica.
+    
+        Ejemplo de uso: self.cancel_reservation('Sala A', inicio)
+
+        Args:
+            room_name (str): El nombre de la sala cuya reserva se desea cancelar.
+            start_datetime (datetime): La fecha y hora de inicio de la reserva a cancelar.
+
+        Raises:
+            ValueError: Si no existe una reserva coincidente para la sala y el inicio especificados.
+
+        Returns:
+            None: Este método no devuelve ningún valor. Elimina la reserva de la lista interna de reservas.
+        """
         for reservation in self._reservations:
             if reservation.room.name == room_name and reservation.start_datetime == start_datetime:
                 self._reservations.remove(reservation)
@@ -59,7 +81,16 @@ class ReservationSystem:
         raise ValueError("No existe la reserva")
 
     def list_reservations(self, date):
-        """ Método que retorna una lista de las reservas activas en un determinado día """
+        """Retorna una lista de las reservas activas en un día específico.
+    
+        Ejemplo de uso: reservas = self.list_reservations(fecha)
+
+        Args:
+            date (datetime.date): La fecha para la cual se desean listar las reservas.
+
+        Returns:
+            list: Una lista de reservas activas en la fecha especificada.
+        """
         reservation_list = []
         for reservation in self._reservations:
             if reservation.start_datetime.date == date:

@@ -1,5 +1,5 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
-""" Imports """
+""" Módulo que contiene una representación de una fecha y hora """
 
 class DateTime:
     """ Clase que representa una fecha y hora """
