@@ -7,12 +7,7 @@ from business.mydatetime import DateTime
 
 app = Flask(__name__)
 
-def create_system():
-    """ Create system """
-    res_system = ReservationSystem()
-    return res_system
-
-reservation_system = create_system()
+reservation_system = ReservationSystem()
 
 
 @app.route('/', methods=['GET'])
@@ -23,8 +18,9 @@ def home():
 
     reservation_data = []
     for res in reservations:
+        room_name = res.room if isinstance(res.room, str) else res.room.name
         reservation_data.append((
-            res.room.name,
+            room_name,
             res.start_datetime,
             res.end_datetime
         ))
