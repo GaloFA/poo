@@ -59,10 +59,8 @@ def reservation():
         end_minute = int(request.form['end_minute'])
         end_second = int(request.form['end_second'])
 
-        start_datetime = DateTime(
-            start_year, start_month, start_day, start_hour, start_minute, start_second)
-        end_datetime = DateTime(end_year, end_month,
-                                end_day, end_hour, end_minute, end_second)
+        start_datetime = DateTime(start_year, start_month, start_day, start_hour, start_minute, start_second)
+        end_datetime = DateTime(end_year, end_month, end_day, end_hour, end_minute, end_second)
 
         try:
             reservation_system.make_reservation(
