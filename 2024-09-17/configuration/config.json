@@ -1,0 +1,6 @@
+{
+    "backend_type": "json",
+    "db_path": "data/db/reservations.db",
+    "reservas_json_path": "data/json/reservations.json",
+    "salas_json_path": "data/json/rooms.json"
+}

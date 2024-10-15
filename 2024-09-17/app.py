@@ -4,10 +4,12 @@
 from flask import Flask, redirect, url_for, render_template, request
 from business.reservation_system import ReservationSystem
 from business.mydatetime import DateTime
+from configuration.configuration_parser import ConfigurationParser
 
 app = Flask(__name__)
 
-reservation_system = ReservationSystem()
+config = ConfigurationParser()
+reservation_system = ReservationSystem(config)
 
 
 @app.route('/', methods=['GET'])
