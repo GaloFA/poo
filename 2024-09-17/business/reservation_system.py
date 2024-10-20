@@ -10,9 +10,9 @@ class ReservationSystem:
     """ Clase que representa el sistema de reservas """
 
     def __init__(self, config: ConfigurationParser):
-        self._room_manager = RoomManager()
+        self._room_manager = RoomManager(config)
         self._reservations = []
-        self._reservation_dao = ReservationDAOFactory.create_dao(config.get_backend_type(), config.get_db_path(), config.get_reservas_json_path())
+        self._reservation_dao = ReservationDAOFactory.create_dao(config.get_backend_type(), config.get_db_path(), config.get_reservations_json_path())
         self.load_reservations()
 
     def load_reservations(self):

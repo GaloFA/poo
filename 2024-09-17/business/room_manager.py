@@ -1,12 +1,13 @@
 # pylint: disable=line-too-long, superfluous-parens, too-few-public-methods
 """ Módulo que contiene las salas y maneras de manejarlas (agregar o borrar) """
-from persistence.roomdao import RoomDAO
+from persistence.room.room_factory_dao import RoomDAOFactory
+from configuration.configuration_parser import ConfigurationParser
 
 class RoomManager:
     """ Clase que maneja las salas del lugar """
-    def __init__(self) -> None:
+    def __init__(self, config: ConfigurationParser) -> None:
         self._rooms = []
-        self._room_dao = RoomDAO()
+        self._room_dao = RoomDAOFactory.create_dao(config.get_backend_type(), config.get_db_path(), config.get_rooms_json_path())
         self._load_rooms()
 
     def _load_rooms(self):

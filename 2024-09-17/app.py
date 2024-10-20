@@ -11,7 +11,6 @@ app = Flask(__name__)
 config = ConfigurationParser()
 reservation_system = ReservationSystem(config)
 
-
 @app.route('/', methods=['GET'])
 def home():
     """ Home """

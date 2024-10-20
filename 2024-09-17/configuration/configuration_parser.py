@@ -6,7 +6,7 @@ import os
 class ConfigurationParser:
     """Clase que carga y gestiona la configuración de la aplicación."""
 
-    DEFAULT_CONFIG_PATH = 'config.json'
+    DEFAULT_CONFIG_PATH = 'configuration/config.json'
 
     def __init__(self, config_path=None):
         """Inicializa el parser de configuración.
@@ -49,7 +49,7 @@ class ConfigurationParser:
         """
         return self.config.get('db_path')
 
-    def get_reservas_json_path(self):
+    def get_reservations_json_path(self):
         """Obtiene la ruta del archivo JSON para las reservas.
         
         Returns:
@@ -57,7 +57,7 @@ class ConfigurationParser:
         """
         return self.config.get('reservas_json_path')
 
-    def get_salas_json_path(self):
+    def get_rooms_json_path(self):
         """Obtiene la ruta del archivo JSON para las salas.
         
         Returns:

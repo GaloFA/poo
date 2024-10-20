@@ -39,5 +39,14 @@ class ReservationJsonDAO(ReservationDAO):
 
     def list_reservations(self):
 
-        with open(self.json_path, 'r', encoding='utf-8') as file:
-            return json.load(file)
+        try:
+            with open(self.json_path, 'r', encoding='utf-8') as file:
+                data = file.read().strip()
+                if not data:
+                    return []
+
+                reservations = json.loads(data)
+                return [{"room_name": res["room_name"], "start_datetime": res["start_datetime"], "end_datetime": res["end_datetime"]}
+                        for res in reservations]
+        except (json.JSONDecodeError, KeyError):
+            return []
